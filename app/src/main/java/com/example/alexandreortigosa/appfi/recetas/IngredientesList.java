@@ -1,30 +1,38 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.app.ListActivity;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 
-public class BaseActivity extends ActionBarActivity {
-
-    private gestDB gesdb;
+public class IngredientesList extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ingredientes_list);
+        ListView list = (ListView) findViewById(R.id.listaingredientes);
+        gestDB ges = new gestDB(getApplicationContext());
+        ges.open();
+        Cursor cursor = ges.cursorAllIngredientes();
+        startManagingCursor(cursor);
+        String[] from = new String[]{"nombre"};
+        int[] to = new int[]{R.id.text};
 
-        gesdb=new gestDB(getApplicationContext());
-        DatosPrueba dtp = new DatosPrueba(gesdb);
-        //dtp.generarIngredientes(20);
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,R.layout.row_ingrediente,cursor,from,to);
+        list.setAdapter(cursorAdapter);
 
-        setContentView(R.layout.activity_base);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_base, menu);
+        getMenuInflater().inflate(R.menu.menu_ingredientes_list, menu);
         return true;
     }
 

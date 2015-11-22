@@ -17,9 +17,11 @@ public class DatosPrueba {
 
     public void generarIngredientes(int numero){
 
+        slite.open();
         for(int i=0; i<=numero;i++){
             slite.insertIngrediente(new Ingrediente("Ingrediente" + String.valueOf(numero)));
         }
+        slite.close();
 
 
     }

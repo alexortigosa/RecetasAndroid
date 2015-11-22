@@ -20,6 +20,10 @@
             android:name=".BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
+        <activity
+            android:name=".IngredientesList"
+            android:label="@string/title_activity_ingredientes_list" >
+        </activity>
     </application>
 
 </manifest>

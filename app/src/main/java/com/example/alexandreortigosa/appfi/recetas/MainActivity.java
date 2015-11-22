@@ -1,17 +1,27 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+
+    private Button bIngredientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bIngredientes = (Button) findViewById(R.id.button_ing);
+        bIngredientes.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -34,5 +44,20 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.button_ing:
+                goToIngredientes();
+                break;
+        }
+    }
+
+    public void goToIngredientes(){
+        Intent intent = new Intent(getApplicationContext(), IngredientesList.class);
+        startActivity(intent);
     }
 }

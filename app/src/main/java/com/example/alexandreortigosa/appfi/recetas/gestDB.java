@@ -2,6 +2,7 @@ package com.example.alexandreortigosa.appfi.recetas;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -116,5 +117,11 @@ public class gestDB {
         values.put(Ingredientes.NOMBRE, ing.getName());
         long id = db.insert(TABLE_INGREDIENTE, null, values);
         return id;
+    }
+
+    public Cursor cursorAllIngredientes(){
+
+
+        return this.db.rawQuery("SELECT "+Ingredientes.NOMBRE+" FROM "+TABLE_INGREDIENTE,null);
     }
 }
