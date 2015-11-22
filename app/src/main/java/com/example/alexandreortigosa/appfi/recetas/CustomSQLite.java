@@ -12,6 +12,7 @@ public class CustomSQLite extends SQLiteOpenHelper {
     String sqlCreateIngrediente = "CREATE TABLE Ingrediente (id INTEGER PRIMARY KEY   AUTOINCREMENT,name TEXT)";
     String sqlCreateRecetaIngrediente = "CREATE TABLE RecetaIngrediente (id INTEGER PRIMARY KEY   AUTOINCREMENT,receta INTEGER,ingrediente INTEGER)";
     String sqlCreateSubsitutivos = "CREATE TABLE Substitutivos (id INTEGER PRIMARY KEY   AUTOINCREMENT,ingrediente INTEGER,substitutivo INTEGER)";
+    String sqlCreateTipos = "CREATE TABLE Tipos (id INTEGER PRIMARY KEY   AUTOINCREMENT,name TEXT)";
 
 
     public CustomSQLite(Context contexto, String nombre,
@@ -37,12 +38,14 @@ public class CustomSQLite extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Ingrediente");
         db.execSQL("DROP TABLE IF EXISTS RecetaIngrediente");
         db.execSQL("DROP TABLE IF EXISTS Substitutivos");
+        db.execSQL("DROP TABLE IF EXISTS Tipos");
 
         //Se crea la nueva versión de la tabla
         db.execSQL(sqlCreateReceta);
         db.execSQL(sqlCreateIngrediente);
         db.execSQL(sqlCreateRecetaIngrediente);
         db.execSQL(sqlCreateSubsitutivos);
+        db.execSQL(sqlCreateTipos);
 
     }
 }
