@@ -8,9 +8,13 @@ import android.view.MenuItem;
 
 public class BaseActivity extends ActionBarActivity {
 
+    private gestDB gesdb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        gesdb=new gestDB(getApplicationContext());
         setContentView(R.layout.activity_base);
     }
 

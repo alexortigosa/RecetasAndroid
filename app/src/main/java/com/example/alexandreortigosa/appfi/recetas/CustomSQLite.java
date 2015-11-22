@@ -13,12 +13,25 @@ public class CustomSQLite extends SQLiteOpenHelper {
     String sqlCreateRecetaIngrediente = "CREATE TABLE RecetaIngrediente (id INTEGER PRIMARY KEY   AUTOINCREMENT,receta INTEGER,ingrediente INTEGER)";
     String sqlCreateSubsitutivos = "CREATE TABLE Substitutivos (id INTEGER PRIMARY KEY   AUTOINCREMENT,ingrediente INTEGER,substitutivo INTEGER)";
     String sqlCreateTipos = "CREATE TABLE Tipos (id INTEGER PRIMARY KEY   AUTOINCREMENT,name TEXT)";
+    SQLiteDatabase db;
 
 
     public CustomSQLite(Context contexto, String nombre,
                          SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
     }
+
+    public void insertIngrediente(String name){
+        db=this.getWritableDatabase();
+        if(db != null) {
+            db.execSQL("INSERT INTO Ingrediente (name) " +
+                    "VALUES ('" + name + "')");
+        }
+        //Cerramos la base de datos
+        db.close();
+    }
+
+
 
 
     @Override
