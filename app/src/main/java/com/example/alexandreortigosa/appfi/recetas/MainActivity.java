@@ -63,12 +63,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     public void goToIngredientes(){
-        Intent intent = new Intent(getApplicationContext(), Recetas.class);
+        Intent intent = new Intent(getApplicationContext(), Ingredientes.class);
+        startActivity(intent);
+    }
+
+    public void goToRecetasDetail(){
+        Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
         startActivity(intent);
     }
 
     public void goToRecetas(){
-        Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
+        Intent intent = new Intent(getApplicationContext(), Recetas.class);
         startActivity(intent);
     }
 }

@@ -19,14 +19,16 @@
         <activity
             android:name=".BaseActivity"
             android:label="@string/title_activity_base" />
-
         <activity
             android:name=".Recetas"
             android:label="@string/title_activity_recetas"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".RecetasContainer"
-            android:theme="@style/customThemeCompat"></activity>
+        <activity
+            android:name=".RecetasContainer"
+            android:theme="@style/customThemeCompat" />
+        <activity
+            android:name=".Ingredientes"
+            android:label="@string/title_activity_ingredientes"></activity>
     </application>
 
 </manifest>
