@@ -12,7 +12,19 @@
         android:layout_height="wrap_content"
         android:text="IIngredientes"
         android:id="@+id/button_ing"
+        android:background="@drawable/button"
+        style="@style/button_text"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recetas"
+        android:background="@drawable/button"
+        style="@style/button_text"
+        android:id="@+id/button_recetas_main"
+        android:layout_below="@+id/button_ing"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

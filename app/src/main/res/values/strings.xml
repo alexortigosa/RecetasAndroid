@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_ingredientes_list">IngredientesList</string>
+    <string name="title_activity_recetas">Recetas</string>
+    <string name="title_activity_receta_deatails">RecetaDeatails</string>
 </resources>

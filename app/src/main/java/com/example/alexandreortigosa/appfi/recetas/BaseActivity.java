@@ -1,14 +1,15 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends Activity {
 
-    private gestDB gesdb;
+    public gestDB gesdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,9 @@ public class BaseActivity extends ActionBarActivity {
         gesdb=new gestDB(getApplicationContext());
         DatosPrueba dtp = new DatosPrueba(gesdb);
         //dtp.generarIngredientes(20);
+       // dtp.generarRecetas(10);
+
+
 
         setContentView(R.layout.activity_base);
     }

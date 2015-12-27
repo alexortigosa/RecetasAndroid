@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.alexandreortigosa.appfi.recetas" >
+    package="com.example.alexandreortigosa.appfi.recetas">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/customTheme1">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,12 +18,15 @@
         </activity>
         <activity
             android:name=".BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+            android:label="@string/title_activity_base" />
+
         <activity
-            android:name=".IngredientesList"
-            android:label="@string/title_activity_ingredientes_list" >
-        </activity>
+            android:name=".Recetas"
+            android:label="@string/title_activity_recetas"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".RecetasContainer"
+            android:theme="@style/customThemeCompat"></activity>
     </application>
 
 </manifest>

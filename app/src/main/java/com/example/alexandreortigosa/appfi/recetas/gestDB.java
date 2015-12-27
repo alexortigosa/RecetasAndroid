@@ -12,14 +12,14 @@ import android.provider.BaseColumns;
  */
 public class gestDB {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 8;
     private static final String DATABASE_NAME = "dataBase.db";
 
     //Definición de tabla login
     private static final String TABLE_RECETAS = "RECETAS";
     public static final class Recetas implements BaseColumns {//
         private Recetas() {}
-        public static final String ID_RECETA = "id_login";
+        public static final String ID_RECETA = "_id";
         public static final String NAME = "name";
         public static final String DESC = "description";
         public static final String IMAGEN = "image";
@@ -29,7 +29,7 @@ public class gestDB {
     private static final String TABLE_INGREDIENTE = "INGREDIENTES";
     public static final class Ingredientes implements BaseColumns {
         private Ingredientes() {}
-        public static final String ID_INGREDIENTE = "id_ingrediente";
+        public static final String ID_INGREDIENTE = "_id";
         public static final String NOMBRE = "nombre";
     }
 
@@ -37,7 +37,7 @@ public class gestDB {
     private static final String TABLE_RECETAINGREDIENTES = "RECETASINGREDIENTES";
     public static final class recetasIngredientes implements BaseColumns {
         private recetasIngredientes() {}
-        public static final String ID_RECETAINGREDIENTE = "id_recetaingrediente";
+        public static final String ID_RECETAINGREDIENTE = "_id";
         public static final String ID_RECETA = "id_receta";
         public static final String ID_INGREDIENTE = "id_ingrediente";
     }
@@ -46,7 +46,7 @@ public class gestDB {
     private static final String TABLE_SUBSTITUTIVOS = "SUBSTITUTIVOS";
     public static final class Substitutivos implements BaseColumns {
         private Substitutivos() {}
-        public static final String ID_RECETAINGREDIENTE = "id_substitutivo";
+        public static final String ID_RECETAINGREDIENTE = "_id";
         public static final String ID_INGREDIENTE = "id_ingrediente";
         public static final String ID_SUB = "id_subs";
     }
@@ -55,14 +55,31 @@ public class gestDB {
     private static final String TABLE_TIPOS = "TIPOS";
     public static final class Tipos implements BaseColumns {
         private Tipos() {}
-        public static final String ID_TIPOS = "id_tipo";
+        public static final String ID_TIPOS = "_id";
         public static final String NOMBRE = "nombre";
     }
 
     // Sentencias para la creación de tablas
-    private static final String INGREDIENTE_TABLE_CREATE = "create table " + TABLE_INGREDIENTE
-            + " (" + Ingredientes.ID_INGREDIENTE + " integer primary key AUTOINCREMENT, "
-            + Ingredientes.NOMBRE + " text not null);";
+    private static final String INGREDIENTE_TABLE_CREATE = "CREATE TABLE if not exists " + TABLE_INGREDIENTE + " (" +
+             Ingredientes.ID_INGREDIENTE + " integer PRIMARY KEY autoincrement, " +
+             Ingredientes.NOMBRE + " text not null);";
+
+    private static final String RECETAS_TABLE_CREATE = "CREATE TABLE if not exists " + TABLE_RECETAS + " (" +
+            Recetas.ID_RECETA + " integer PRIMARY KEY autoincrement, " +
+            Recetas.NAME + " text not null, " +
+            Recetas.DESC + " text, "+
+            Recetas.IMAGEN + " text, "+
+            Recetas.TYPE + " text);";
+
+    private static final String RECETAS_INGREDIENTES_TABLE_CREATE = "CREATE TABLE if not exists " + TABLE_RECETAINGREDIENTES + " (" +
+            recetasIngredientes.ID_RECETAINGREDIENTE + " integer PRIMARY KEY autoincrement, " +
+            recetasIngredientes.ID_RECETA + " integer not null, " +
+            recetasIngredientes.ID_INGREDIENTE + " integer not null);";
+
+    private static final String SUBSTITUTIVOS_TABLE_CREATE = "CREATE TABLE if not exists " + TABLE_SUBSTITUTIVOS + " (" +
+            Substitutivos.ID_RECETAINGREDIENTE + " integer PRIMARY KEY autoincrement, " +
+            Substitutivos.ID_INGREDIENTE + " integer not null, " +
+            Substitutivos.ID_SUB + " integer not null);";
 
 
 
@@ -97,6 +114,9 @@ public class gestDB {
         public void onCreate(SQLiteDatabase db) {
             //Se ejecuta la sentencia SQL de creación de la tabla
             db.execSQL(INGREDIENTE_TABLE_CREATE);
+                db.execSQL(RECETAS_TABLE_CREATE);
+                db.execSQL(RECETAS_INGREDIENTES_TABLE_CREATE);
+                db.execSQL(SUBSTITUTIVOS_TABLE_CREATE);
 
         }
 
@@ -104,6 +124,9 @@ public class gestDB {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             //Se elimina la versión anterior de la tabla
             db.execSQL("DROP TABLE IF EXISTS "+TABLE_INGREDIENTE);
+            db.execSQL("DROP TABLE IF EXISTS "+TABLE_RECETAS);
+            db.execSQL("DROP TABLE IF EXISTS "+TABLE_RECETAINGREDIENTES);
+            db.execSQL("DROP TABLE IF EXISTS "+TABLE_SUBSTITUTIVOS);
 
 
             //Se crea la nueva versión de la tabla
@@ -119,9 +142,32 @@ public class gestDB {
         return id;
     }
 
+    public long insertReceta(Receta receta){
+        ContentValues values = new ContentValues();
+        //values.put(Ingredientes.ID_INGREDIENTE, ing.getId());
+        values.put(Recetas.NAME, receta.getName());
+        values.put(Recetas.DESC,receta.getDescripccio());
+        values.put(Recetas.IMAGEN,receta.getPhoto());
+        values.put(Recetas.TYPE,"1");
+        long id = db.insert(TABLE_RECETAS, null, values);
+        return id;
+    }
+
     public Cursor cursorAllIngredientes(){
 
 
         return this.db.rawQuery("SELECT "+Ingredientes.NOMBRE+" FROM "+TABLE_INGREDIENTE,null);
+    }
+
+    public Cursor fetchAllIngredientes(){
+        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,null);
+        if(mCursor != null) mCursor.moveToFirst();
+        return  mCursor;
+    }
+
+    public Cursor fetchAllRecetas(){
+        Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN,Recetas.TYPE},null,null,null,null,null);
+        if(mCursor != null) mCursor.moveToFirst();
+        return  mCursor;
     }
 }
