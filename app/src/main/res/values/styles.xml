@@ -34,6 +34,12 @@
         <item name="android:shadowRadius" >2</item>
     </style>
 
+    <style name="MyActionBar"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/BackGroundColor</item>
+
+        <!-- Support library compatibility -->
+    </style>
 
 
 

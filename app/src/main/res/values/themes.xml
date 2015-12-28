@@ -10,7 +10,12 @@
 
     <style name="customThemeCompat" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="android:windowTitleBackgroundStyle">@style/TituloHeadBackground</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+
+
+
 
     </style>
 

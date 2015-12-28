@@ -28,7 +28,8 @@
             android:theme="@style/customThemeCompat" />
         <activity
             android:name=".Ingredientes"
-            android:label="@string/title_activity_ingredientes"></activity>
+            android:label="@string/title_activity_ingredientes"
+            android:theme="@style/customThemeCompat"></activity>
     </application>
 
 </manifest>
