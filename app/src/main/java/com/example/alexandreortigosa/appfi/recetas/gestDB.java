@@ -160,7 +160,7 @@ public class gestDB {
     }
 
     public Cursor fetchAllIngredientes(){
-        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,null);
+        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
         if(mCursor != null) mCursor.moveToFirst();
         return  mCursor;
     }
