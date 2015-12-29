@@ -1,5 +1,6 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 
 public class RecetasContainer extends AppCompatActivity implements RecetaDeatails.OnFragmentInteractionListener,IngredientesList.OnFragmentInteractionListener {
     private RecetasDetAdapter rAdapter;
+    private int idReceta;
+    private String STATUS;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,25 +42,50 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        idReceta=intent.getIntExtra(gestDB.Recetas.NAME,9999);
+        STATUS=intent.getStringExtra(RecetaDeatails.STATE);
         setContentView(R.layout.activity_recetas_container);
         rAdapter = new RecetasDetAdapter(getSupportFragmentManager(),RecetasContainer.this);
 
         ViewPager vPager = (ViewPager) findViewById(R.id.viewpager);
         vPager.setAdapter(rAdapter);
 
+
+
         // Give the TabLayout the ViewPager (material)
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(Color.DKGRAY, Color.BLACK);
         tabLayout.setupWithViewPager(vPager);
+        rAdapter.setStatus(STATUS);
+        switch (STATUS){
+            case RecetaDeatails.STATE_SHOW:
+                rAdapter.setearReceta(idReceta);
+                break;
+            case RecetaDeatails.STATE_EDIT:
+                rAdapter.setearReceta(idReceta);
+                break;
+            case RecetaDeatails.STATE_ADD:
+                break;
+            default:
+                break;
+
+        }
+
+
+
+
     }
 
     @Override
     public void onFragmentInteractionMem(Uri uri) {
 
+
     }
 
     @Override
     public void onFragmentInteractionFinished() {
+
 
     }
 

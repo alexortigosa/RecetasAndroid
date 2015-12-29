@@ -170,4 +170,30 @@ public class gestDB {
         if(mCursor != null) mCursor.moveToFirst();
         return  mCursor;
     }
+
+    public Receta recogerReceta(int id){
+        Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN,Recetas.TYPE},Recetas.ID_RECETA+" = ?",  new String[] {String.valueOf(id)},null,null,null);
+        Receta rResult;
+        if(mCursor != null)
+        {
+            mCursor.moveToFirst();
+            rResult = new Receta(mCursor.getString(mCursor.getColumnIndex(Recetas.NAME)),mCursor.getString(mCursor.getColumnIndex(Recetas.DESC)));
+            rResult.setId(mCursor.getInt(mCursor.getColumnIndex(Recetas.ID_RECETA)));
+            rResult.setPhoto(mCursor.getString(mCursor.getColumnIndex(Recetas.IMAGEN)));
+            return  rResult;
+        }
+        else return null;
+
+
+    }
+
+    public Cursor fetchAllIngredientesReceta(int id){
+        String myQuery = "SELECT ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
+                TABLE_RECETAINGREDIENTES+" REC "+
+                "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+recetasIngredientes.ID_INGREDIENTE+" "+
+                "WHERE REC."+recetasIngredientes.ID_RECETA+"=?";
+        Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
+        if(mCursor != null) mCursor.moveToFirst();
+        return  mCursor;
+    }
 }

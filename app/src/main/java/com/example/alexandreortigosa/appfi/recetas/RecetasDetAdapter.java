@@ -15,14 +15,35 @@ public class RecetasDetAdapter extends FragmentPagerAdapter {
     IngredientesList ingredientes;
     RecetaDeatails detalles;
     Fragment tab = null;
+    gestDB gesdb;
+    Receta receta;
+
+
+    String status;
 
     public RecetasDetAdapter(FragmentManager fm, Context con) {
         super(fm);
         this.context=con;
+        gesdb=new gestDB(con);
         ingredientes = new IngredientesList();
         detalles = new RecetaDeatails();
 
     }
+
+    public void setearReceta(int id){
+        gesdb.open();
+        receta=gesdb.recogerReceta(id);
+        gesdb.close();
+        detalles.setReceta(receta);
+        ingredientes.setReceta(receta);
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+        detalles.setSTATUS(status);
+        ingredientes.setSTATUS(status);
+    }
+
 
     @Override
     public Fragment getItem(int position) {

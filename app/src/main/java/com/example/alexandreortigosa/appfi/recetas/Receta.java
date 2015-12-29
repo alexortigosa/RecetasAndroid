@@ -11,9 +11,19 @@ public class Receta {
     private String photo;
     private LinkedList<String> categorias;
     private String name;
+    private int id;
+
 
     public Receta(){
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Receta(String name, String desc){

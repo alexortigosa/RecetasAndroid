@@ -29,7 +29,10 @@
         <activity
             android:name=".Ingredientes"
             android:label="@string/title_activity_ingredientes"
-            android:theme="@style/customThemeCompat"></activity>
+            android:theme="@style/customThemeCompat" />
+        <activity android:name=".addReceta1"></activity>
+
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </application>
 
 </manifest>

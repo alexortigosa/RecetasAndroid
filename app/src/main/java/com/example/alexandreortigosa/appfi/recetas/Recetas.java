@@ -1,5 +1,6 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -27,8 +29,9 @@ public class Recetas extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
+                intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_ADD);
+                startActivity(intent);
             }
         });
 
@@ -40,6 +43,23 @@ public class Recetas extends AppCompatActivity {
         int[] to = new int[]{R.id.textView4Receta,R.id.textView5Receta};
         dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_receta,cursor,columns,to);
         list.setAdapter(dataAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Cursor c = dataAdapter.getCursor();
+
+                if(c.moveToPosition(i)){
+                    String name=c.getString(c.getColumnIndex(gestDB.Recetas.NAME));
+                    int id = c.getInt(c.getColumnIndex(gestDB.Recetas.ID_RECETA));
+                    Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
+                    intent.putExtra(gestDB.Recetas.NAME,id);
+                    intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_SHOW);
+                    startActivity(intent);
+                    int a=0;
+                }
+
+            }
+        });
 
     }
 

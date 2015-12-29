@@ -31,24 +31,9 @@ public class IngredientesList extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
+    private Receta receta;
+    private String STATUS;
 
-    /**
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingredientes_list);
-        list = (ListView) findViewById(R.id.listaingredientes);
-        gesdb.open();
-        Cursor cursor = gesdb.fetchAllIngredientes();
-        //startManagingCursor(cursor);
-        String[] columns = new String[]{gestDB.Ingredientes.ID_INGREDIENTE,gestDB.Ingredientes.NOMBRE};
-        int[] to = new int[]{R.id.idIngrediente,R.id.nameIngrediente};
-
-        dataAdapter = new SimpleCursorAdapter(this,R.layout.row_ingrediente,cursor,columns,to);
-        list.setAdapter(dataAdapter);
-
-    }
-**/
 
     /**
      * Use this factory method to create a new instance of
@@ -71,6 +56,13 @@ public class IngredientesList extends Fragment {
     public IngredientesList() {
         // Required empty public constructor
     }
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public void setReceta(Receta receta) {
+        this.receta = receta;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,17 +70,33 @@ public class IngredientesList extends Fragment {
         // Inflate the layout for this fragment
         myFragmentView=inflater.inflate(R.layout.activity_ingredientes_list, container, false);
         list = (ListView) myFragmentView.findViewById(R.id.listaingredientes);
+        switch (STATUS){
+            case RecetaDeatails.STATE_ADD:
+                break;
+            case RecetaDeatails.STATE_EDIT:
+                setList();
+                break;
+            case RecetaDeatails.STATE_SHOW:
+                setList();
+                break;
+            default:
+                break;
+        }
+
+        return myFragmentView;
+
+    }
+
+    private void setList(){
+
         gesdb=new gestDB(getActivity().getApplicationContext());
         gesdb.open();
-        Cursor cursor = gesdb.fetchAllIngredientes();
+        Cursor cursor = gesdb.fetchAllIngredientesReceta(receta.getId());
         //startManagingCursor(cursor);
         String[] columns = new String[]{gestDB.Ingredientes.ID_INGREDIENTE,gestDB.Ingredientes.NOMBRE};
         int[] to = new int[]{R.id.idIngrediente,R.id.nameIngrediente};
         dataAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente,cursor,columns,to);
         list.setAdapter(dataAdapter);
-
-        return myFragmentView;
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
