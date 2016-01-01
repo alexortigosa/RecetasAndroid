@@ -29,8 +29,10 @@ public class Recetas extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
+                /*Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
                 intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_ADD);
+                startActivity(intent);*/
+                Intent intent = new Intent(getApplicationContext(), addReceta1.class);
                 startActivity(intent);
             }
         });

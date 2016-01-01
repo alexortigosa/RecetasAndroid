@@ -13,4 +13,6 @@
     <string name="dialog_add_name_ingre">Nombre Ingrediente</string>
     <string name="dialog_add_titulo">Añade un ingrediente</string>
     <string name="dialog_empty_text">No ha introducido ningún nombre</string>
+    <string name="addReceta_name">Nombre receta</string>
+    <string name="addReceta_Desc">Descripción Receta</string>
 </resources>
