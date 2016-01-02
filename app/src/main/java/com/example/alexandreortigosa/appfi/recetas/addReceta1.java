@@ -14,6 +14,8 @@ import android.widget.ImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class addReceta1 extends Activity implements View.OnClickListener{
 
@@ -22,12 +24,16 @@ public class addReceta1 extends Activity implements View.OnClickListener{
     ImageView imgView;
     Button bChecked;
     Button bCancel;
+    Button bIngredientes;
+    List<Ingrediente> lIngredientes;
     private static final int SELECT_PHOTO = 100;
+    private static final int INGREDIENTES_ADD = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receta1);
+        lIngredientes= new ArrayList();
         eName = (EditText)findViewById(R.id.addReceta_Name);
         eDesc = (EditText)findViewById(R.id.addReceta_Desc);
         imgView = (ImageView) findViewById(R.id.addRecetaPhoto);
@@ -35,8 +41,10 @@ public class addReceta1 extends Activity implements View.OnClickListener{
         imgView.setOnClickListener(this);
         bChecked=(Button) findViewById(R.id.addReceta_checkedButton);
         bCancel=(Button) findViewById(R.id.addReceta_cancelButton);
+        bIngredientes=(Button) findViewById(R.id.addReceta_ButtonIng);
         bChecked.setOnClickListener(this);
         bCancel.setOnClickListener(this);
+        bIngredientes.setOnClickListener(this);
 
 
     }
@@ -68,6 +76,11 @@ public class addReceta1 extends Activity implements View.OnClickListener{
                 eDesc.setText("");
                 eDesc.setHint(R.string.addReceta_Desc);
                 break;
+            case R.id.addReceta_ButtonIng:
+                Intent intent = new Intent(getApplicationContext(), addIngredientesReceta.class);
+                intent.putExtra(getResources().getString(R.string.add_Ingredientes_Intent),new CustomListIng(lIngredientes));
+                startActivityForResult(intent, INGREDIENTES_ADD);
+                break;
             default:
                 break;
         }
@@ -91,6 +104,12 @@ public class addReceta1 extends Activity implements View.OnClickListener{
                         e.printStackTrace();
                     }
 
+                }
+                break;
+            case INGREDIENTES_ADD:
+                if(resultCode==Activity.RESULT_OK){
+                   CustomListIng lIngredientesaux = (CustomListIng) imageReturnedIntent.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
+                    lIngredientes=lIngredientesaux.getIngredientes();
                 }
         }
     }

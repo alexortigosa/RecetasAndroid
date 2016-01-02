@@ -40,6 +40,10 @@ public class Receta {
         this.ingredientes = ingredientes;
     }
 
+    public void anadirIngrediente(Ingrediente ing){
+        ingredientes.add(ing);
+    }
+
     public String getDescripccio() {
         return descripccio;
     }

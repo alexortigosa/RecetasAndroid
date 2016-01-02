@@ -3,6 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_borrar">Borrar</string>
+    <string name="action_anadir_subs">Anadir Substitutivos</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_ingredientes_list">IngredientesList</string>
     <string name="title_activity_recetas">Recetas</string>
@@ -15,4 +17,8 @@
     <string name="dialog_empty_text">No ha introducido ningún nombre</string>
     <string name="addReceta_name">Nombre receta</string>
     <string name="addReceta_Desc">Descripción Receta</string>
+    <string name="title_activity_add_ingredientes_receta">addIngredientesReceta</string>
+    <string name="add_Ingredientes_Intent">INTENTiNGREDIENTES</string>
+    <string name="add_Ingredientes_delete_title">Quiere borrar el ingrediente?</string>
+    <string name="add_Ingredientes_delete_borrar">Borrar</string>
 </resources>

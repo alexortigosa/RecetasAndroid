@@ -6,6 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by alexandreortigosa on 22/11/15.
@@ -163,6 +170,20 @@ public class gestDB {
         Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
         if(mCursor != null) mCursor.moveToFirst();
         return  mCursor;
+    }
+
+    public List<Ingrediente> fetchListAllIngredientes(){
+        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
+        List<Ingrediente> result = new ArrayList<>();
+
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+            while (mCursor.moveToNext()){
+                Ingrediente ing = new Ingrediente(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
+                result.add(ing);
+            }
+        }
+        return  result;
     }
 
     public Cursor fetchAllRecetas(){

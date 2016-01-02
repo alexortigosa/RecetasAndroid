@@ -93,7 +93,7 @@
             android:text="Ingredientes"
             android:background="@drawable/button"
             style="@style/button_text"
-            android:id="@+id/button31" />
+            android:id="@+id/addReceta_ButtonIng" />
     </LinearLayout>
 
     </LinearLayout>
