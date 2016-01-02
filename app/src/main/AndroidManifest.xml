@@ -38,6 +38,10 @@
         <activity
             android:name=".addIngredientesReceta"
             android:label="@string/title_activity_add_ingredientes_receta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addSubs"
+            android:label="@string/title_activity_add_subs"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

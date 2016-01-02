@@ -186,6 +186,20 @@ public class gestDB {
         return  result;
     }
 
+    public List<IngredienteReceta> fetchListAllIngredientesReceta(){
+        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
+        List<IngredienteReceta> result = new ArrayList<>();
+
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+            while (mCursor.moveToNext()){
+                IngredienteReceta ing = new IngredienteReceta(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
+                result.add(ing);
+            }
+        }
+        return  result;
+    }
+
     public Cursor fetchAllRecetas(){
         Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN,Recetas.TYPE},null,null,null,null,null);
         if(mCursor != null) mCursor.moveToFirst();

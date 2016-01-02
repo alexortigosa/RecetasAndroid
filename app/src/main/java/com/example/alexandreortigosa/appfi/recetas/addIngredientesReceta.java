@@ -30,12 +30,12 @@ public class addIngredientesReceta extends AppCompatActivity {
     private Context myContext;
     private AlertDialog dialog;
     private View dialogLayout;
-    private ArrayAdapter<Ingrediente> aAdapter;
-    private ArrayAdapter<Ingrediente> aContentAdapter;
-    private List<Ingrediente> lIngredientes;
-    private List<Ingrediente> lContentIngredientes;
+    private ArrayAdapter<IngredienteReceta> aAdapter;
+    private ArrayAdapter<IngredienteReceta> aContentAdapter;
+    private List<IngredienteReceta> lIngredientes;
+    private List<IngredienteReceta> lContentIngredientes;
     private Button bAddIngredientes;
-    private Ingrediente ingSelected;
+    private IngredienteReceta ingSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,9 @@ public class addIngredientesReceta extends AppCompatActivity {
         gesdb=new gestDB(getApplicationContext());
         gesdb.open();
         lContentIngredientes= cLi.getIngredientes();
-        lIngredientes=gesdb.fetchListAllIngredientes();
-        aAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lIngredientes);
-        aContentAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
+        lIngredientes=gesdb.fetchListAllIngredientesReceta();
+        aAdapter = new ArrayAdapter<IngredienteReceta>(getApplicationContext(),R.layout.row_ingrediente_adding,lIngredientes);
+        aContentAdapter = new ArrayAdapter<IngredienteReceta>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
         bAddIngredientes = (Button) findViewById(R.id.addIngredientesRecetaResult);
         bAddIngredientes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,35 +68,6 @@ public class addIngredientesReceta extends AppCompatActivity {
         list = (ListView) findViewById(R.id.addRecetalistViewIngreDientes);
         list.setAdapter(aContentAdapter);
         registerForContextMenu(list);
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(myContext);
-                final Ingrediente ing = (Ingrediente)list.getItemAtPosition(i);
-                builder.setTitle(R.string.add_Ingredientes_delete_title);
-                builder.setPositiveButton(R.string.add_Ingredientes_delete_borrar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        lContentIngredientes.remove(ing);
-                        refresList();
-                    }
-                }).setNegativeButton(R.string.dialog_add_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                }).create().show();
-            }
-        });
-
-
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
-            }
-        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,17 +86,11 @@ public class addIngredientesReceta extends AppCompatActivity {
                     dialogLayout = inflater.inflate(R.layout.fragment_dialog, null);
                     final ListView listAdding = (ListView) dialogLayout.findViewById(R.id.addInglistView);
 
-
-                    //Cursor cursor = gesdb.fetchAllIngredientes();
-                    //startManagingCursor(cursor);
-                    //String[] columns = new String[]{gestDB.Ingredientes.NOMBRE};
-                    //int[] to = new int[]{R.id.nameIngredienteLast};
-                    //dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_ingrediente_last,cursor,columns,to);
                     listAdding.setAdapter(aAdapter);
                     listAdding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Ingrediente ing = (Ingrediente)listAdding.getItemAtPosition(i);
+                            IngredienteReceta ing = (IngredienteReceta)listAdding.getItemAtPosition(i);
                             lContentIngredientes.add(ing);
                             lIngredientes.remove(ing);
                             refresList();
@@ -160,7 +125,7 @@ public class addIngredientesReceta extends AppCompatActivity {
         if (v.getId() == R.id.addRecetalistViewIngreDientes) {
             ListView lv = (ListView) v;
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            ingSelected = (Ingrediente) lv.getItemAtPosition(acmi.position);
+            ingSelected = (IngredienteReceta) lv.getItemAtPosition(acmi.position);
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_contect_add_recetas, menu);
 
@@ -174,7 +139,7 @@ public class addIngredientesReceta extends AppCompatActivity {
         builder.setPositiveButton(R.string.add_Ingredientes_delete_borrar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                lIngredientes.add(ingSelected);
                 lContentIngredientes.remove(ingSelected);
                 refresList();
             }

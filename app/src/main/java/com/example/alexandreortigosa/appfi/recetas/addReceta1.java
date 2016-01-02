@@ -25,7 +25,7 @@ public class addReceta1 extends Activity implements View.OnClickListener{
     Button bChecked;
     Button bCancel;
     Button bIngredientes;
-    List<Ingrediente> lIngredientes;
+    List<IngredienteReceta> lIngredientes;
     private static final int SELECT_PHOTO = 100;
     private static final int INGREDIENTES_ADD = 102;
 

@@ -7,13 +7,13 @@ import java.util.List;
  * Created by referralsLoLGlobal on 01/01/2016.
  */
 public class CustomListIng implements Serializable {
-    private List<Ingrediente> ingredientes;
+    private List<IngredienteReceta> ingredientes;
 
-    public CustomListIng(List<Ingrediente> ingredientes) {
+    public CustomListIng(List<IngredienteReceta> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
-    public List<Ingrediente> getIngredientes() {
+    public List<IngredienteReceta> getIngredientes() {
         return ingredientes;
     }
 }
