@@ -12,4 +12,25 @@
     tools:context="com.example.alexandreortigosa.appfi.recetas.addSubs"
     tools:showIn="@layout/activity_add_subs">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/addIngredienteSubstitutivo"
+            android:layout_weight="0.2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Añadir lista"
+            android:background="@drawable/button"
+            android:id="@+id/addIngredienteSubButton"
+            android:layout_weight="0.8" />
+    </LinearLayout>
+
 </RelativeLayout>

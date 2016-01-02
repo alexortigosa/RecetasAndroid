@@ -25,13 +25,17 @@ public class addReceta1 extends Activity implements View.OnClickListener{
     Button bChecked;
     Button bCancel;
     Button bIngredientes;
+    Button bSave;
+    Receta receta;
     List<IngredienteReceta> lIngredientes;
     private static final int SELECT_PHOTO = 100;
     private static final int INGREDIENTES_ADD = 102;
+    private gestDB gesdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        receta=new Receta();
         setContentView(R.layout.activity_add_receta1);
         lIngredientes= new ArrayList();
         eName = (EditText)findViewById(R.id.addReceta_Name);
@@ -45,8 +49,8 @@ public class addReceta1 extends Activity implements View.OnClickListener{
         bChecked.setOnClickListener(this);
         bCancel.setOnClickListener(this);
         bIngredientes.setOnClickListener(this);
-
-
+        bSave=(Button)findViewById(R.id.addReceta_ButtonAdd);
+        bSave.setOnClickListener(this);
     }
 
     private void selectImage(){
@@ -81,9 +85,29 @@ public class addReceta1 extends Activity implements View.OnClickListener{
                 intent.putExtra(getResources().getString(R.string.add_Ingredientes_Intent),new CustomListIng(lIngredientes));
                 startActivityForResult(intent, INGREDIENTES_ADD);
                 break;
+            case R.id.addReceta_ButtonAdd:
+                guardarReceta();
+                break;
             default:
                 break;
         }
+    }
+
+    private void guardarReceta(){
+        receta.setName(eName.getText().toString());
+        receta.setDescripccio(eDesc.getText().toString());
+        receta.setIngredientes(lIngredientes);
+        gesdb=new gestDB(getApplicationContext());
+        gesdb.open();
+        //gesdb.guardarReceta(receta);
+        gesdb.insertReceta(receta);
+        Intent i = new Intent();
+        setResult(Activity.RESULT_OK, i);
+        finish();
+    }
+
+    private void setImage(){
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -95,6 +119,7 @@ public class addReceta1 extends Activity implements View.OnClickListener{
 
                     try {
                         Uri selectedImage = imageReturnedIntent.getData();
+                        receta.setPhoto(selectedImage.toString());
                         InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                         Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
                         imgView.setImageBitmap(yourSelectedImage);

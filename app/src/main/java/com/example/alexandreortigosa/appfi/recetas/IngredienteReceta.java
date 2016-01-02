@@ -18,6 +18,12 @@ public class IngredienteReceta extends Ingrediente {
        substitutivos.add(ing);
    }
 
+    public void setSubstitutivos(List<Ingrediente> substitutivos) {
+        this.substitutivos = substitutivos;
+    }
+
+
+
     public IngredienteReceta(String name) {
         super(name);
     }

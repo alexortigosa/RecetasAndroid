@@ -1,15 +1,16 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by referralsLoLGlobal on 22/12/2015.
  */
 public class Receta {
-    private LinkedList<Ingrediente> ingredientes;
+    private List<IngredienteReceta> ingredientes;
     private String descripccio;
     private String photo;
-    private LinkedList<String> categorias;
+    private List<String> categorias;
     private String name;
     private int id;
 
@@ -32,15 +33,15 @@ public class Receta {
         this.photo="/prueba/photo1.jpg";
     }
 
-    public LinkedList<Ingrediente> getIngredientes() {
+    public List<IngredienteReceta> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(LinkedList<Ingrediente> ingredientes) {
+    public void setIngredientes(List<IngredienteReceta> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
-    public void anadirIngrediente(Ingrediente ing){
+    public void anadirIngrediente(IngredienteReceta ing){
         ingredientes.add(ing);
     }
 
@@ -60,7 +61,7 @@ public class Receta {
         this.photo = photo;
     }
 
-    public LinkedList<String> getCategorias() {
+    public List<String> getCategorias() {
         return categorias;
     }
 

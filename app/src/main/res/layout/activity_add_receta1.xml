@@ -10,6 +10,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:weightSum="1">
 
         <LinearLayout
@@ -90,10 +92,24 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Ingredientes"
+            android:text="@string/add_Receta_Ingredientes"
             android:background="@drawable/button"
             style="@style/button_text"
             android:id="@+id/addReceta_ButtonIng" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/add_Receta_add"
+            android:background="@drawable/button"
+            style="@style/button_text"
+            android:id="@+id/addReceta_ButtonAdd" />
     </LinearLayout>
 
     </LinearLayout>

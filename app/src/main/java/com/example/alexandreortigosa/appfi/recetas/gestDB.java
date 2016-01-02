@@ -222,6 +222,10 @@ public class gestDB {
 
     }
 
+    public void guardarReceta(Receta receta){
+
+    }
+
     public Cursor fetchAllIngredientesReceta(int id){
         String myQuery = "SELECT ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
                 TABLE_RECETAINGREDIENTES+" REC "+

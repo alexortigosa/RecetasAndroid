@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 public class addIngredientesReceta extends AppCompatActivity {
@@ -36,6 +41,20 @@ public class addIngredientesReceta extends AppCompatActivity {
     private List<IngredienteReceta> lContentIngredientes;
     private Button bAddIngredientes;
     private IngredienteReceta ingSelected;
+    private static final int INGREDIENTES_SUB = 103;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case INGREDIENTES_SUB:
+                if(resultCode==Activity.RESULT_OK){
+                    IngredienteReceta ingRec = (IngredienteReceta) data.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Subs_Intent));
+                    updateSubs(ingRec);
+                }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +178,7 @@ public class addIngredientesReceta extends AppCompatActivity {
                 borrarItem();
                 return true;
             case R.id.actionSubstitus:
+                irSelectSubs();
                 return true;
 
             default:
@@ -167,7 +187,27 @@ public class addIngredientesReceta extends AppCompatActivity {
 
     }
 
+    private IngredienteReceta searchIngredienteReceta(int id){
+        IngredienteReceta ing;
+        for(IngredienteReceta aux: lContentIngredientes){
+            if (aux.getId()==id) return aux;
+        }
+        return null;
+    }
+    private void irSelectSubs(){
+        Intent intent = new Intent(getApplicationContext(), addSubs.class);
+        intent.putExtra(getResources().getString(R.string.add_Ingredientes_Subs_Intent),searchIngredienteReceta(ingSelected.getId()));
+        startActivityForResult(intent, INGREDIENTES_SUB);
+    }
 
+    private void updateSubs(IngredienteReceta ingRec){
+        int id=ingRec.getId();
+        for(IngredienteReceta aux: lContentIngredientes){
+            if (aux.getId()==id) {
+                aux.setSubstitutivos(ingRec.getSubstitutivos());
+            }
+        }
+    }
 
     private void refresList(){
         //set the changed data

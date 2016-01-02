@@ -2,6 +2,9 @@ package com.example.alexandreortigosa.appfi.recetas;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +15,34 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class Recetas extends AppCompatActivity {
 
     private ListView list;
     private SimpleCursorAdapter dataAdapter;
     private gestDB gesdb;
+    private static final int INGREDIENTES_ADD=107;
+    private String[] columns = new String[]{gestDB.Recetas.ID_RECETA,gestDB.Recetas.NAME};
+    private int[] to = new int[]{R.id.textView4Receta,R.id.textView5Receta};
+    Cursor cursor;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case INGREDIENTES_ADD:
+                if (resultCode == RESULT_OK) {
+                       refreshList();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,20 +55,17 @@ public class Recetas extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
-                intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_ADD);
-                startActivity(intent);*/
+
                 Intent intent = new Intent(getApplicationContext(), addReceta1.class);
-                startActivity(intent);
+                startActivityForResult(intent,INGREDIENTES_ADD);
             }
         });
 
         gesdb=new gestDB(getApplicationContext());
         gesdb.open();
-        Cursor cursor = gesdb.fetchAllRecetas();
+        cursor = gesdb.fetchAllRecetas();
         //startManagingCursor(cursor);
-        String[] columns = new String[]{gestDB.Recetas.ID_RECETA,gestDB.Recetas.NAME};
-        int[] to = new int[]{R.id.textView4Receta,R.id.textView5Receta};
+
         dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_receta,cursor,columns,to);
         list.setAdapter(dataAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,6 +86,11 @@ public class Recetas extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void refreshList(){
+        cursor = gesdb.fetchAllRecetas();
+        dataAdapter.notifyDataSetChanged();
     }
 
 }

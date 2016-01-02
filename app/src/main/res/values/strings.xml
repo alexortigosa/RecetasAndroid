@@ -19,7 +19,11 @@
     <string name="addReceta_Desc">Descripción Receta</string>
     <string name="title_activity_add_ingredientes_receta">addIngredientesReceta</string>
     <string name="add_Ingredientes_Intent">INTENTiNGREDIENTES</string>
+    <string name="add_Ingredientes_Subs_Intent">INTENT_INGREDIENTES_SUBS</string>
     <string name="add_Ingredientes_delete_title">Quiere borrar el ingrediente?</string>
+    <string name="add_Substitutivos_delete_title">Quiere borrar el Substituto de la lista?</string>
     <string name="add_Ingredientes_delete_borrar">Borrar</string>
     <string name="title_activity_add_subs">addSubs</string>
+    <string name="add_Receta_add">Guardar Receta</string>
+    <string name="add_Receta_Ingredientes">Ingredientes</string>
 </resources>
