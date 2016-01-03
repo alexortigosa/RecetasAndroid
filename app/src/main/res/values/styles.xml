@@ -3,8 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-
+        <item name="actionBarStyle">@style/MyActionBar</item>
         <!-- Customize your theme here. -->
+    </style>
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
+    </style>
+
+    <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/BackGroundColor</item>
     </style>
 
     <style name="TituloHeadBackground">
@@ -12,8 +19,7 @@
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:background">#000</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -34,11 +40,6 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
-    <style name="MyActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@color/BackGroundColor</item>
-
-        <!-- Support library compatibility -->
-    </style>
 
 
 </resources>

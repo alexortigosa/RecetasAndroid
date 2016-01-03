@@ -62,6 +62,7 @@ public class addIngredientesReceta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredientes_receta);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         CustomListIng cLi = (CustomListIng) intent.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
@@ -88,6 +89,34 @@ public class addIngredientesReceta extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.addRecetalistViewIngreDientes);
         list.setAdapter(aContentAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                IngredienteReceta ingSeleceted = (IngredienteReceta) list.getItemAtPosition(i);
+                ingSeleceted = getIngredienteReceta(ingSeleceted.getId());
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(myContext);
+                // Get the layout inflater
+                LayoutInflater inflater = getLayoutInflater();
+                View v = inflater.inflate(R.layout.dialog_ingrediente_sub_receta, null);
+                ListView listSubs = (ListView) v.findViewById(R.id.RecetaSubsShow);
+                listSubs.setClickable(false);
+                List<Ingrediente> listaux = ingSeleceted.getSubstitutivos();
+                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.row_ingrediente_adding, ingSeleceted.getSubstitutivos());
+                listSubs.setAdapter(adapter);
+                builder.setTitle(R.string.dialog_Receta_Substitutivos_title);
+                builder.setView(v)
+
+                        // Add action buttons
+                        .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+
+                            }
+                        });
+                builder.create().show();
+            }
+        });
         registerForContextMenu(list);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -138,6 +167,13 @@ public class addIngredientesReceta extends AppCompatActivity {
 
             }
         });
+    }
+
+    public IngredienteReceta getIngredienteReceta(int id) {
+        for(IngredienteReceta ing: lContentIngredientes){
+            if(ing.getId()==id) return ing;
+        }
+        return null;
     }
 
     private List<IngredienteReceta> reduceIngregientes() {

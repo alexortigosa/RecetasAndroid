@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="@android:dimen/thumbnail_height"
-    android:weightSum="1">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/RecetaListPhoto"
-        android:layout_weight="0.6" />
+    android:weightSum="1"
+    android:background="@color/BackGroundColorPrimary"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:padding="10dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.4"
+        android:layout_weight="0.8"
         android:weightSum="1">
 
         <TextView
@@ -24,17 +24,15 @@
             android:text="Large Text"
             android:id="@+id/RecetaListName"
             android:width="1dp"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/RecetaListDesc"
-            android:width="1dp"
-            android:layout_weight="0.5" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/RecetaListPhoto"
+        android:layout_weight="0.2" />
 
 </LinearLayout>

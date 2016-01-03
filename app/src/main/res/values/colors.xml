@@ -2,6 +2,9 @@
 <resources>
     <color name="ColorPrimary">#FF5722</color>
     <color name="ColorPrimaryDark">#E64A19</color>
-    <color name="BackGroundColor">#EB6A00</color>
+    <color name="BackGroundColor">#005E00</color>
+    <color name="BackGroundColorPrimary">#54A054</color>
+    <color name="BackgroundColorSecundary">#E0E6E0</color>
+
     <color name="transparent">#80000000</color>
 </resources>

@@ -22,15 +22,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/addRecetalistViewIngreDientes"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.1" />
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Ingredientes"
-            android:background="@drawable/button"
-            android:id="@+id/addIngredientesRecetaResult"
-            android:layout_weight="0.8" />
+            android:layout_weight="0.9"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Añadir Ingredientes"
+                android:background="@drawable/button"
+                android:id="@+id/addIngredientesRecetaResult"
+                android:layout_weight="0.2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView89"
+                android:layout_weight="0.8" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

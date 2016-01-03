@@ -45,6 +45,7 @@ public class addSubs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();

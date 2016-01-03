@@ -156,9 +156,6 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
             default:
                 break;
         }
-
-
-
         return myFragmentView;
 
     }

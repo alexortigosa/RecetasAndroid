@@ -30,6 +30,7 @@
                 android:text="New Text"
                 android:id="@+id/DetalleRecetaName"
                 android:textSize="30dp"
+                android:textColor="@color/BackGroundColor"
                 android:gravity="center"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -38,7 +39,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/abc_search_view_text_min_width">
+            android:layout_height="@dimen/abc_search_view_text_min_width"
+            android:paddingBottom="10dp">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,12 +52,15 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="New Text"
+                android:textSize="15dp"
+                android:textColor="@color/BackGroundColor"
                 android:id="@+id/DetalleRecetaDesc" />
         </LinearLayout>
 

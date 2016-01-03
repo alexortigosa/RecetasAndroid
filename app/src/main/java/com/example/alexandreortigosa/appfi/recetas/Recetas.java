@@ -54,6 +54,7 @@ public class Recetas extends AppCompatActivity {
         list = (ListView) findViewById(R.id.listViewRecetas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +62,10 @@ public class Recetas extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), addReceta1.class);
-                startActivityForResult(intent,INGREDIENTES_ADD);
+                startActivityForResult(intent, INGREDIENTES_ADD);
             }
         });
+
 
         gesdb=new gestDB(getApplicationContext());
         gesdb.open();
@@ -81,30 +83,6 @@ public class Recetas extends AppCompatActivity {
 
             }
         });
-        /*cursor = gesdb.fetchAllRecetas();
-        //startManagingCursor(cursor);
-
-        dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_receta,cursor,columns,to);
-        list.setAdapter(dataAdapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Cursor c = dataAdapter.getCursor();
-
-                if(c.moveToPosition(i)){
-                    String name=c.getString(c.getColumnIndex(gestDB.Recetas.NAME));
-                    int id = c.getInt(c.getColumnIndex(gestDB.Recetas.ID_RECETA));
-                    Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
-                    intent.putExtra(gestDB.Recetas.NAME,id);
-                    intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_SHOW);
-                    startActivity(intent);
-                    int a=0;
-                }
-
-            }
-        });
-        */
-
     }
 
     private void refreshList(){

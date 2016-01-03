@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,7 +24,7 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
     private String STATUS;
     private static final int INGREDIENTES_EDIT = 102;
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_base, menu);
@@ -46,22 +47,6 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
         }
 
         //return super.onOptionsItemSelected(item);
-    }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch(requestCode) {
-            case INGREDIENTES_EDIT:
-                if(resultCode== Activity.RESULT_OK){
-                    CustomListIng lIngredientesaux = (CustomListIng) data.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
-                    receta.setIngredientes(lIngredientesaux.getIngredientes());
-                    rAdapter.setearReceta(receta);
-                    rAdapter.updateListaIng();
-
-                }
-        }
     }*/
 
     @Override
@@ -74,6 +59,9 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
         //idReceta=intent.getIntExtra(gestDB.Recetas.NAME,9999);
         STATUS=intent.getStringExtra(RecetaDeatails.STATE);
         setContentView(R.layout.activity_recetas_container);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarReceta);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         rAdapter = new RecetasDetAdapter(getSupportFragmentManager(),RecetasContainer.this);
 
         ViewPager vPager = (ViewPager) findViewById(R.id.viewpager);
@@ -83,17 +71,16 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
 
         // Give the TabLayout the ViewPager (material)
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setTabTextColors(Color.DKGRAY, Color.BLACK);
+        tabLayout.setTabTextColors(Color.DKGRAY, Color.WHITE);
+        tabLayout.setBackgroundColor(getResources().getColor(R.color.BackGroundColorPrimary));
         tabLayout.setupWithViewPager(vPager);
         rAdapter.setStatus(STATUS);
         switch (STATUS){
             case RecetaDeatails.STATE_SHOW:
                 rAdapter.setearReceta(receta);
-                //rAdapter.setearReceta(idReceta);
                 break;
             case RecetaDeatails.STATE_EDIT:
                 rAdapter.setearReceta(receta);
-                //rAdapter.setearReceta(idReceta);
                 break;
             case RecetaDeatails.STATE_ADD:
                 break;
