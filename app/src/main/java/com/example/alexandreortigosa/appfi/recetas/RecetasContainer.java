@@ -1,6 +1,9 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -10,11 +13,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class RecetasContainer extends AppCompatActivity implements RecetaDeatails.OnFragmentInteractionListener,IngredientesList.OnFragmentInteractionListener {
     private RecetasDetAdapter rAdapter;
     private int idReceta;
     private Receta receta;
     private String STATUS;
+    private static final int INGREDIENTES_EDIT = 102;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,6 +47,23 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
 
         //return super.onOptionsItemSelected(item);
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case INGREDIENTES_EDIT:
+                if(resultCode== Activity.RESULT_OK){
+                    CustomListIng lIngredientesaux = (CustomListIng) data.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
+                    receta.setIngredientes(lIngredientesaux.getIngredientes());
+                    rAdapter.setearReceta(receta);
+                    rAdapter.updateListaIng();
+
+                }
+        }
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

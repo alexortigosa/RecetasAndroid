@@ -42,7 +42,7 @@ public class RecetasAdapter extends ArrayAdapter<Receta> {
             row=inflater.inflate(layoutResourceId,parent,false);
 
             holder= new RecetaHolder();
-            holder.desc=(TextView)row.findViewById(R.id.RecetaListDesc);
+            //holder.desc=(TextView)row.findViewById(R.id.RecetaListDesc);
             holder.nombre=(TextView)row.findViewById(R.id.RecetaListName);
             holder.imgReceta=(ImageView)row.findViewById(R.id.RecetaListPhoto);
 
@@ -59,14 +59,14 @@ public class RecetasAdapter extends ArrayAdapter<Receta> {
             new setImagesListTask(holder.imgReceta,context).execute(receta.getPhoto());
         }
         holder.nombre.setText(receta.getName());
-        holder.desc.setText(receta.getDescripccio().substring(0,25));
+        //holder.desc.setText(receta.getDescripccio().substring(0,25));
         return row;
     }
 
     static class RecetaHolder{
         ImageView imgReceta;
         TextView nombre;
-        TextView desc;
+        //TextView desc;
 
     }
 }

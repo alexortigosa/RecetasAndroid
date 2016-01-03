@@ -91,6 +91,40 @@ public class Receta implements Serializable{
         gestDB ges = new gestDB(context);
         ges.open();
         ingredientes=ges.fetchAllIngredientesRecetaList(id);
+        ges.close();
 
+    }
+
+
+
+    public void changeDescripcio(Context context,String des){
+        descripccio=des;
+        gestDB ges = new gestDB(context);
+        ges.open();
+        ges.changeStringsReceta(this);
+        ges.close();
+
+    }
+    public void changeName(Context context,String name){
+        gestDB ges = new gestDB(context);
+        ges.open();
+        this.name=name;
+        ges.changeStringsReceta(this);
+        ges.close();
+
+    }
+
+    public void guardarPhoto(Context context) {
+        gestDB ges = new gestDB(context);
+        ges.open();
+        ges.changePhotoReceta(this);
+        ges.close();
+    }
+
+    public IngredienteReceta getIngredienteReceta(int id) {
+        for(IngredienteReceta ing: ingredientes){
+            if(ing.getId()==id) return ing;
+        }
+        return null;
     }
 }

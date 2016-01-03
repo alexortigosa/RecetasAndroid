@@ -1,19 +1,24 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -34,8 +39,10 @@ public class IngredientesList extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
+    private List<IngredienteReceta> ingredientes;
     private Receta receta;
     private String STATUS;
+    private static final int INGREDIENTES_EDIT = 102;
 
 
     /**
@@ -59,12 +66,36 @@ public class IngredientesList extends Fragment {
     public IngredientesList() {
         // Required empty public constructor
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case INGREDIENTES_EDIT:
+                if(resultCode== Activity.RESULT_OK){
+                    CustomListIng lIngredientesaux = (CustomListIng) data.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
+                    receta.setIngredientes(lIngredientesaux.getIngredientes());
+                    ingredientes=receta.getIngredientes();
+                   actualizaLista();
+
+
+                }
+        }
+    }
+
     public void setSTATUS(String STATUS) {
         this.STATUS = STATUS;
     }
 
     public void setReceta(Receta receta) {
         this.receta = receta;
+        ingredientes=receta.getIngredientes();
+    }
+
+    public void actualizaLista() {
+        setList();
+       iAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,8 +123,8 @@ public class IngredientesList extends Fragment {
 
     private void setList(){
 
-        gesdb=new gestDB(getActivity().getApplicationContext());
-        gesdb.open();
+        //gesdb=new gestDB(getActivity().getApplicationContext());
+        //gesdb.open();
         /*Cursor cursor = gesdb.fetchAllIngredientesReceta(receta.getId());
         //startManagingCursor(cursor);
         String[] columns = new String[]{gestDB.Ingredientes.ID_INGREDIENTE,gestDB.Ingredientes.NOMBRE};
@@ -101,12 +132,49 @@ public class IngredientesList extends Fragment {
         dataAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente,cursor,columns,to);
         list.setAdapter(dataAdapter);*/
 
-        iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,receta.getIngredientes());
+        iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,ingredientes);
         list.setAdapter(iAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                IngredienteReceta ingSeleceted = (IngredienteReceta) list.getItemAtPosition(i);
+                ingSeleceted = receta.getIngredienteReceta(ingSeleceted.getId());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                View v = inflater.inflate(R.layout.dialog_ingrediente_sub_receta, null);
+                ListView listSubs = (ListView) v.findViewById(R.id.RecetaSubsShow);
+                listSubs.setClickable(false);
+                List<Ingrediente> listaux = ingSeleceted.getSubstitutivos();
+                ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), R.layout.row_ingrediente_adding, ingSeleceted.getSubstitutivos());
+                listSubs.setAdapter(adapter);
+                builder.setTitle(R.string.dialog_Receta_Substitutivos_title);
+                builder.setView(v)
 
+                        // Add action buttons
+                        .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+
+                            }
+                        });
+                builder.create().show();
+            }
+        });
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                editConfirmation();
+                return true;
+            }
+        });
+        list.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                editConfirmation();
+
+                return true;
             }
         });
     }
@@ -134,6 +202,33 @@ public class IngredientesList extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    private void editConfirmation(){
+
+        final Boolean[] respuesta = {false};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.dialog_Receta_Edit_Ingredientes_check);
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), addIngredientesReceta.class);
+                intent.putExtra(getResources().getString(R.string.add_Ingredientes_Intent),new CustomListIng(receta.getIngredientes()));
+                startActivityForResult(intent, INGREDIENTES_EDIT);
+
+            }
+        })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        builder.create().show();
+
+
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -74,4 +74,8 @@ public class RecetasDetAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         return tabTitles[position];
     }
+
+    public void updateListaIng() {
+        ingredientes.actualizaLista();
+    }
 }

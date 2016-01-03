@@ -27,4 +27,12 @@
     <string name="add_Receta_add">Guardar Receta</string>
     <string name="add_Receta_Ingredientes">Ingredientes</string>
     <string name="intent_Receta">RECETA</string>
+    <string name="dialog_Receta_Edit_Name_Title">Editar Nombre</string>
+    <string name="dialog_Receta_Edit_Descripcion_Title">Editar Descripción</string>
+    <string name="dialog_Receta_Edit_Descripcion_check">Quiere modificar la descripción?</string>
+    <string name="dialog_Receta_Edit_Name_check">Quiere modificar el nombre?</string>
+    <string name="dialog_Receta_Edit_Photo_check">Quiere modificar la imagen?</string>
+    <string name="dialog_Receta_Edit_Ingredientes_check">Quiere modificar los ingredientes?</string>
+    <string name="dialog_Receta_Substitutivos_title">Lista de substitutivos</string>
+
 </resources>

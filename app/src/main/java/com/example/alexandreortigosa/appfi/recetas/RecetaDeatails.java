@@ -1,6 +1,8 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -29,7 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class RecetaDeatails extends Fragment {
+public class RecetaDeatails extends Fragment implements View.OnLongClickListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -37,10 +40,14 @@ public class RecetaDeatails extends Fragment {
     public static final String STATE_EDIT = "EDITANDO";
     public static final String STATE_ADD = "ANADIENDO";
     public static final String STATE_SHOW="SHOW";
+    private static final String NAME="NOMBRE";
+    private static final String DESC="DESCRIP";
+    private static final String PHOTO="PHOTO";
+    private static final int SELECT_PHOTO = 100;
     private String STATUS;
     private View myFragmentView;
-    EditText  nombre;
-    EditText  desc;
+    TextView  nombre;
+    TextView  desc;
     ImageView photo;
     Receta receta;
     KeyListener kName;
@@ -78,6 +85,34 @@ public class RecetaDeatails extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case SELECT_PHOTO:
+                if(resultCode == Activity.RESULT_OK){
+
+                    try {
+                        Uri selectedImage = data.getData();
+                        receta.setPhoto(selectedImage.toString());
+                        receta.guardarPhoto(getActivity().getApplicationContext());
+                        InputStream imageStream = getActivity().getApplicationContext().getContentResolver().openInputStream(selectedImage);
+                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                        photo.setImageBitmap(yourSelectedImage);
+
+
+                    }
+                    catch (FileNotFoundException e){
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+
+        }
+    }
+
     public void setReceta(Receta receta) {
         this.receta = receta;
     }
@@ -97,14 +132,17 @@ public class RecetaDeatails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         myFragmentView=inflater.inflate(R.layout.content_receta_deatails, container, false);
-        nombre=(EditText ) myFragmentView.findViewById(R.id.DetalleRecetaName);
-        desc=(EditText ) myFragmentView.findViewById(R.id.DetalleRecetaDesc);
+        nombre=(TextView ) myFragmentView.findViewById(R.id.DetalleRecetaName);
+        desc=(TextView ) myFragmentView.findViewById(R.id.DetalleRecetaDesc);
         photo=(ImageView) myFragmentView.findViewById(R.id.DetalleRecetaPhoto);
         kName=nombre.getKeyListener();
         kDesc=desc.getKeyListener();
+        nombre.setOnLongClickListener(this);
+        desc.setOnLongClickListener(this);
+        photo.setOnLongClickListener(this);
 
 
-        setStyle();
+        //setStyle();
         switch (STATUS){
             case (STATE_ADD):
                 setAdd();
@@ -221,8 +259,137 @@ public class RecetaDeatails extends Fragment {
 
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        switch (view.getId()){
+            case R.id.DetalleRecetaName:
+                editConfirmation(R.id.DetalleRecetaName,NAME);
+                break;
+            case R.id.DetalleRecetaDesc:
+                editConfirmation(R.id.DetalleRecetaDesc, DESC);
+                break;
+            case R.id.DetalleRecetaPhoto:
+                editConfirmation(R.id.DetalleRecetaPhoto, PHOTO);
+                break;
 
-   public interface OnFragmentInteractionListener {
+            default:
+                break;
+        }
+        return false;
+    }
+
+    private void editConfirmation(final int idResorce, String MODE){
+
+        final Boolean[] respuesta = {false};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        switch (MODE){
+            case (NAME):
+                builder.setTitle(R.string.dialog_Receta_Edit_Name_check);
+                break;
+            case (DESC):
+                builder.setTitle(R.string.dialog_Receta_Edit_Descripcion_check);
+                break;
+            case (PHOTO):
+                builder.setTitle(R.string.dialog_Receta_Edit_Photo_check);
+                break;
+            default:
+                break;
+
+        }
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+               launchAction(idResorce);
+
+            }
+        })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        builder.create().show();
+
+
+
+    }
+
+    private void launchAction(int idResource){
+        switch (idResource) {
+            case R.id.DetalleRecetaName:
+                launcEditDialog(R.id.DetalleRecetaName, NAME).show();
+                break;
+            case R.id.DetalleRecetaDesc:
+                launcEditDialog(R.id.DetalleRecetaDesc, DESC).show();
+                break;
+            case R.id.DetalleRecetaPhoto:
+                selectImage();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void selectImage(){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+    }
+    private AlertDialog launcEditDialog(int idResource, String MODE){
+        final TextView in = (TextView) myFragmentView.findViewById(idResource);
+        final String MODEAUX =MODE;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_edit_receta, null);
+        final EditText edit=(EditText)v.findViewById(R.id.dialogEditTextReceta);
+        if(MODEAUX==NAME){
+            edit.setMaxLines(1);
+            edit.setLines(1);
+            builder.setTitle(R.string.dialog_Receta_Edit_Name_Title);
+        }
+        else{
+            edit.setMaxLines(20);
+            edit.setLines(20);
+            builder.setTitle(R.string.dialog_Receta_Edit_Descripcion_Title);
+        }
+        edit.setText(in.getText());
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+
+        builder.setView(v)
+
+                // Add action buttons
+                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        in.setText(edit.getText());
+                        switch (MODEAUX) {
+                            case NAME:
+                                receta.changeName(getActivity().getApplicationContext(), edit.getText().toString());
+                                break;
+                            case DESC:
+                                receta.changeDescripcio(getActivity().getApplicationContext(), edit.getText().toString());
+                                break;
+                            default:
+                                break;
+
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        return builder.create();
+    }
+
+
+    public interface OnFragmentInteractionListener {
        // TODO: Update argument type and name
        public void onFragmentInteractionMem(Uri uri);
        public void onFragmentInteractionFinished();
