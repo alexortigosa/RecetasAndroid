@@ -56,7 +56,15 @@ public class RecetasAdapter extends ArrayAdapter<Receta> {
         Drawable drawable = context.getResources().getDrawable(R.drawable.addcamera);
         holder.imgReceta.setImageDrawable(drawable);
         if (holder.imgReceta != null && receta.getPhoto()!=null) {
-            new setImagesListTask(holder.imgReceta,context).execute(receta.getPhoto());
+            Uri selectedImage = Uri.parse(receta.getPhoto());
+            InputStream imageStream = null;
+            try {
+                imageStream = context.getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+           holder.imgReceta.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+            //new setImagesListTask(holder.imgReceta,context).execute(receta.getPhoto());
         }
         holder.nombre.setText(receta.getName());
         //holder.desc.setText(receta.getDescripccio().substring(0,25));

@@ -127,4 +127,14 @@ public class Receta implements Serializable{
         }
         return null;
     }
+    public void updateIngredientes(Context context,List<IngredienteReceta> lisIngredientes) {
+        gestDB ges = new gestDB(context);
+        ges.open();
+        ges.updateIngredientes(this);
+        ingredientes=lisIngredientes;
+        ges.insertIngredientesReceta(this);
+        ges.close();
+
+
+    }
 }

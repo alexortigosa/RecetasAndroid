@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class addSubs extends AppCompatActivity {
@@ -53,6 +54,7 @@ public class addSubs extends AppCompatActivity {
         gesdb.open();
         lContentIngredientes= cLi.getSubstitutivos();
         lIngredientes=gesdb.fetchListAllIngredientes();
+        lIngredientes=reduceIngregientes();
         aAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lIngredientes);
         aContentAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
         bAddIngredientes = (Button) findViewById(R.id.addIngredienteSubButton);
@@ -150,6 +152,18 @@ public class addSubs extends AppCompatActivity {
         aContentAdapter.notifyDataSetChanged();
 
 
+    }
+    private List<Ingrediente> reduceIngregientes() {
+        List<Ingrediente> lisAux=new ArrayList<>();
+        for (Ingrediente ingRec:lIngredientes){
+            Boolean is=false;
+            for(Ingrediente ingRecaux:lContentIngredientes){
+                if(ingRec.getId()==ingRecaux.getId()) is=true;
+            }
+            if(!is) lisAux.add(ingRec);
+
+        }
+        return lisAux;
     }
 
 }

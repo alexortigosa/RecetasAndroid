@@ -192,6 +192,24 @@ public class gestDB {
         }
         return id;
     }
+    public long insertIngredientesReceta(Receta receta){
+        ContentValues values = new ContentValues();
+        //values.put(Ingredientes.ID_INGREDIENTE, ing.getId());
+
+        for(IngredienteReceta ingRec:receta.getIngredientes()){
+            values = new ContentValues();
+            values.put(recetasIngredientes.ID_RECETA,receta.getId());
+            values.put(recetasIngredientes.ID_INGREDIENTE,ingRec.getId());
+            long idIngredienteReceta  = db.insert(TABLE_RECETAINGREDIENTES,null,values);
+            for(Ingrediente ing:ingRec.getSubstitutivos()){
+                values = new ContentValues();
+                values.put(Substitutivos.ID_INGREDIENTE, idIngredienteReceta);
+                values.put(Substitutivos.ID_SUB,ing.getId());
+                long idSub = db.insert(TABLE_SUBSTITUTIVOS,null,values);
+            }
+        }
+        return receta.getId();
+    }
 
     public Cursor cursorAllIngredientes(){
 
@@ -201,14 +219,14 @@ public class gestDB {
 
     public Cursor fetchAllIngredientes(){
         Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
-        if(mCursor != null) mCursor.moveToFirst();
+        if(mCursor != null && mCursor.getCount()>0) mCursor.moveToFirst();
         return  mCursor;
     }
 
     public List<Receta> getListRecetas(){
         Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN},null,null,null,null,Recetas.NAME);
         List<Receta> result=new ArrayList<>();
-        if(mCursor != null){
+        if(mCursor != null && mCursor.getCount()>0){
             mCursor.moveToFirst();
             do{
                 Receta rec=new Receta(mCursor.getInt(mCursor.getColumnIndex(Recetas.ID_RECETA)),mCursor.getString(mCursor.getColumnIndex(Recetas.NAME)),mCursor.getString(mCursor.getColumnIndex(Recetas.DESC)),mCursor.getString(mCursor.getColumnIndex(Recetas.IMAGEN)));
@@ -223,7 +241,7 @@ public class gestDB {
         Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
         List<Ingrediente> result = new ArrayList<>();
 
-        if(mCursor != null) {
+        if(mCursor != null && mCursor.getCount()>0) {
             mCursor.moveToFirst();
             do{
                 Ingrediente ing = new Ingrediente(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
@@ -238,7 +256,7 @@ public class gestDB {
         Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
         List<IngredienteReceta> result = new ArrayList<>();
 
-        if(mCursor != null) {
+        if(mCursor != null && mCursor.getCount()>0) {
             mCursor.moveToFirst();
             do{
                 IngredienteReceta ing = new IngredienteReceta(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
@@ -251,14 +269,14 @@ public class gestDB {
 
     public Cursor fetchAllRecetas(){
         Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN,Recetas.TYPE},null,null,null,null,null);
-        if(mCursor != null) mCursor.moveToFirst();
+        if(mCursor != null && mCursor.getCount()>0) mCursor.moveToFirst();
         return  mCursor;
     }
 
     public Receta recogerReceta(int id){
         Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN,Recetas.TYPE},Recetas.ID_RECETA+" = ?",  new String[] {String.valueOf(id)},null,null,null);
         Receta rResult;
-        if(mCursor != null)
+        if(mCursor != null && mCursor.getCount()>0)
         {
             mCursor.moveToFirst();
             rResult = new Receta(mCursor.getString(mCursor.getColumnIndex(Recetas.NAME)),mCursor.getString(mCursor.getColumnIndex(Recetas.DESC)));
@@ -268,6 +286,15 @@ public class gestDB {
         }
         else return null;
 
+
+    }
+
+    public void updateIngredientes(Receta rec){
+        ContentValues values = new ContentValues();
+        for(IngredienteReceta ingRec:rec.getIngredientes()){
+            db.delete(TABLE_SUBSTITUTIVOS,Substitutivos.ID_INGREDIENTE+"=?",new String[]{String.valueOf(ingRec.getIdInterno())});
+        }
+        db.delete(TABLE_RECETAINGREDIENTES,recetasIngredientes.ID_RECETA+"=?",new String[]{String.valueOf(rec.getId())});
 
     }
 
@@ -281,7 +308,7 @@ public class gestDB {
                 "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+recetasIngredientes.ID_INGREDIENTE+" "+
                 "WHERE REC."+recetasIngredientes.ID_RECETA+"=?";
         Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
-        if(mCursor != null) mCursor.moveToFirst();
+        if(mCursor != null && mCursor.getCount()>0) mCursor.moveToFirst();
         return  mCursor;
     }
 
@@ -298,13 +325,13 @@ public class gestDB {
 
         Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
         List<IngredienteReceta> result = new ArrayList<>();
-        if(mCursor != null) {
+        if(mCursor != null && mCursor.getCount()>0) {
             mCursor.moveToFirst();
             do{
                     int idRecetaIngrediente = mCursor.getInt(mCursor.getColumnIndex("idRecetaIngrediente"));
-                    IngredienteReceta ingRec = new IngredienteReceta(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
+                    IngredienteReceta ingRec = new IngredienteReceta(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)),idRecetaIngrediente);
                     Cursor iCursor = db.rawQuery(myQuery2,new String[]{String.valueOf(idRecetaIngrediente)});
-                    if(iCursor != null) {
+                    if(iCursor != null && iCursor.getCount()>0) {
                         iCursor.moveToFirst();
                         do{
                             Ingrediente ing=new Ingrediente(iCursor.getString(iCursor.getColumnIndex(Ingredientes.NOMBRE)),iCursor.getInt(iCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));

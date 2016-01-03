@@ -75,9 +75,11 @@ public class IngredientesList extends Fragment {
             case INGREDIENTES_EDIT:
                 if(resultCode== Activity.RESULT_OK){
                     CustomListIng lIngredientesaux = (CustomListIng) data.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
-                    receta.setIngredientes(lIngredientesaux.getIngredientes());
+                    receta.updateIngredientes(getActivity().getApplicationContext(),lIngredientesaux.getIngredientes());
+                    //receta.setIngredientes(lIngredientesaux.getIngredientes());
                     ingredientes=receta.getIngredientes();
-                   actualizaLista();
+                    setList();
+
 
 
                 }

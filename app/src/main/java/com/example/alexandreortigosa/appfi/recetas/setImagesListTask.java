@@ -35,13 +35,18 @@ public class setImagesListTask extends AsyncTask<String, Void, Bitmap> {
         Bitmap yourSelectedImage = null;
 
             if (params[0] != null) {
-                /*Uri selectedImage = Uri.parse(params[0]);
-                InputStream imageStream = contextReference.get().getContentResolver().openInputStream(selectedImage);
-                yourSelectedImage = BitmapFactory.decodeStream(imageStream);*/
+                Uri selectedImage = Uri.parse(params[0]);
+                InputStream imageStream = null;
+                try {
+                    imageStream = contextReference.get().getContentResolver().openInputStream(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                yourSelectedImage = BitmapFactory.decodeStream(imageStream);
 
 
-                Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(params[0]),
-                        THUMBSIZE, THUMBSIZE);
+                /*Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(params[0]),
+                        THUMBSIZE, THUMBSIZE);*/
 
             }
 

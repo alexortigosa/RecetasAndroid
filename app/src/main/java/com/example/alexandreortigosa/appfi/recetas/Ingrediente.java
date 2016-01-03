@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class Ingrediente implements Serializable{
     private int id;
     private String Name;
+    private int idInterno;
+
+
+
 
     public Ingrediente(String name) {
         Name = name;

@@ -25,6 +25,7 @@ import android.widget.SimpleCursorAdapter;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class addIngredientesReceta extends AppCompatActivity {
@@ -69,6 +70,7 @@ public class addIngredientesReceta extends AppCompatActivity {
         gesdb.open();
         lContentIngredientes= cLi.getIngredientes();
         lIngredientes=gesdb.fetchListAllIngredientesReceta();
+        lIngredientes=reduceIngregientes();
         aAdapter = new ArrayAdapter<IngredienteReceta>(getApplicationContext(),R.layout.row_ingrediente_adding,lIngredientes);
         aContentAdapter = new ArrayAdapter<IngredienteReceta>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
         bAddIngredientes = (Button) findViewById(R.id.addIngredientesRecetaResult);
@@ -136,6 +138,19 @@ public class addIngredientesReceta extends AppCompatActivity {
 
             }
         });
+    }
+
+    private List<IngredienteReceta> reduceIngregientes() {
+        List<IngredienteReceta> lisAux=new ArrayList<>();
+        for (IngredienteReceta ingRec:lIngredientes){
+                Boolean is=false;
+                for(Ingrediente ingRecaux:lContentIngredientes){
+                  if(ingRec.getId()==ingRecaux.getId()) is=true;
+                }
+            if(!is) lisAux.add(ingRec);
+
+        }
+        return lisAux;
     }
 
     @Override

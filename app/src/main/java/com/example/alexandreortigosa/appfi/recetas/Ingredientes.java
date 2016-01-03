@@ -26,6 +26,7 @@ public class Ingredientes extends AppCompatActivity {
     private boolean adding;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

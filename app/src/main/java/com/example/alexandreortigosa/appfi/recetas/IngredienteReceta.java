@@ -10,6 +10,14 @@ public class IngredienteReceta extends Ingrediente {
 
     private List<Ingrediente> substitutivos = new ArrayList<>();
 
+
+
+    public int getIdInterno() {
+        return idInterno;
+    }
+
+    private int idInterno;
+
     public List<Ingrediente> getSubstitutivos() {
         return substitutivos;
     }
@@ -22,8 +30,6 @@ public class IngredienteReceta extends Ingrediente {
         this.substitutivos = substitutivos;
     }
 
-
-
     public IngredienteReceta(String name) {
         super(name);
     }
@@ -31,6 +37,12 @@ public class IngredienteReceta extends Ingrediente {
     public IngredienteReceta(String name, int id) {
         super(name, id);
     }
+
+    public IngredienteReceta(String name, int id, int idInterno) {
+        super(name, id);
+        this.idInterno = idInterno;
+    }
+
 
 
 }
