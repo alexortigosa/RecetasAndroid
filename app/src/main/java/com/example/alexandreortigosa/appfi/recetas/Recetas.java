@@ -17,6 +17,8 @@ import android.widget.SimpleCursorAdapter;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Recetas extends AppCompatActivity {
 
@@ -25,8 +27,10 @@ public class Recetas extends AppCompatActivity {
     private gestDB gesdb;
     private static final int INGREDIENTES_ADD=107;
     private String[] columns = new String[]{gestDB.Recetas.ID_RECETA,gestDB.Recetas.NAME};
-    private int[] to = new int[]{R.id.textView4Receta,R.id.textView5Receta};
+    private int[] to = new int[]{R.id.RecetaListName,R.id.RecetaListPhoto};
     Cursor cursor;
+    private List<Receta> recetas = new ArrayList<>();
+    private RecetasAdapter aRecetas;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,7 +67,21 @@ public class Recetas extends AppCompatActivity {
 
         gesdb=new gestDB(getApplicationContext());
         gesdb.open();
-        cursor = gesdb.fetchAllRecetas();
+        recetas=gesdb.getListRecetas();
+        aRecetas = new RecetasAdapter(getApplicationContext(),R.layout.row_receta,recetas);
+        list.setAdapter(aRecetas);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Receta rec = aRecetas.getItem(i);
+                Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
+                intent.putExtra(getResources().getString(R.string.intent_Receta),rec);
+                intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_SHOW);
+                startActivity(intent);
+
+            }
+        });
+        /*cursor = gesdb.fetchAllRecetas();
         //startManagingCursor(cursor);
 
         dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_receta,cursor,columns,to);
@@ -85,12 +103,16 @@ public class Recetas extends AppCompatActivity {
 
             }
         });
+        */
 
     }
 
     private void refreshList(){
-        cursor = gesdb.fetchAllRecetas();
-        dataAdapter.notifyDataSetChanged();
+        /*cursor = gesdb.fetchAllRecetas();
+        dataAdapter.notifyDataSetChanged();*/
+        recetas=gesdb.getListRecetas();
+        aRecetas.notifyDataSetChanged();
+
     }
 
 }

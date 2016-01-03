@@ -26,6 +26,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class RecetaDeatails extends Fragment {
 
@@ -147,20 +149,19 @@ public class RecetaDeatails extends Fragment {
         mListener = null;
     }
 
-    public void setInfo(){
+    public void setInfo()
+    {
         nombre.setText(receta.getName());
         desc.setText(receta.getDescripccio());
-        File imgFile = new  File(receta.getPhoto());
-
-        if(imgFile.exists()){
-
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-
-
-            photo.setImageBitmap(myBitmap);
-
+        Uri selectedImage = Uri.parse(receta.getPhoto());
+        InputStream imageStream = null;
+        try {
+            imageStream = getActivity().getApplicationContext().getContentResolver().openInputStream(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+        Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+        photo.setImageBitmap(bitmap);
     }
 
     public void setAdd(){

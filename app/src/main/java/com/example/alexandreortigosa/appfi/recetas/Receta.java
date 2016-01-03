@@ -1,12 +1,15 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.content.Context;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by referralsLoLGlobal on 22/12/2015.
  */
-public class Receta {
+public class Receta implements Serializable{
     private List<IngredienteReceta> ingredientes;
     private String descripccio;
     private String photo;
@@ -17,6 +20,13 @@ public class Receta {
 
     public Receta(){
 
+    }
+
+    public Receta(int id, String name, String descripccio, String photo) {
+        this.id = id;
+        this.name = name;
+        this.photo = photo;
+        this.descripccio = descripccio;
     }
 
     public int getId() {
@@ -30,7 +40,7 @@ public class Receta {
     public Receta(String name, String desc){
         this.name=name;
         this.descripccio=desc;
-        this.photo="/prueba/photo1.jpg";
+
     }
 
     public List<IngredienteReceta> getIngredientes() {
@@ -75,5 +85,12 @@ public class Receta {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void updateDadesReceta(Context context){
+        gestDB ges = new gestDB(context);
+        ges.open();
+        ingredientes=ges.fetchAllIngredientesRecetaList(id);
+
     }
 }

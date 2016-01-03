@@ -37,6 +37,11 @@ public class RecetasDetAdapter extends FragmentPagerAdapter {
         detalles.setReceta(receta);
         ingredientes.setReceta(receta);
     }
+    public void setearReceta(Receta rec){
+        receta=rec;
+        detalles.setReceta(receta);
+        ingredientes.setReceta(receta);
+    }
 
     public void setStatus(String status) {
         this.status = status;

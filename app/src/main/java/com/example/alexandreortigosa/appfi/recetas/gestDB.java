@@ -3,6 +3,7 @@ package com.example.alexandreortigosa.appfi.recetas;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -19,7 +20,7 @@ import java.util.ListIterator;
  */
 public class gestDB {
 
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "dataBase.db";
 
     //Definición de tabla login
@@ -157,6 +158,18 @@ public class gestDB {
         values.put(Recetas.IMAGEN,receta.getPhoto());
         values.put(Recetas.TYPE,"1");
         long id = db.insert(TABLE_RECETAS, null, values);
+        for(IngredienteReceta ingRec:receta.getIngredientes()){
+            values = new ContentValues();
+            values.put(recetasIngredientes.ID_RECETA,id);
+            values.put(recetasIngredientes.ID_INGREDIENTE,ingRec.getId());
+            long idIngredienteReceta  = db.insert(TABLE_RECETAINGREDIENTES,null,values);
+            for(Ingrediente ing:ingRec.getSubstitutivos()){
+                values = new ContentValues();
+                values.put(Substitutivos.ID_INGREDIENTE, idIngredienteReceta);
+                values.put(Substitutivos.ID_SUB,ing.getId());
+                long idSub = db.insert(TABLE_SUBSTITUTIVOS,null,values);
+            }
+        }
         return id;
     }
 
@@ -170,6 +183,20 @@ public class gestDB {
         Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},null,null,null,null,Ingredientes.NOMBRE);
         if(mCursor != null) mCursor.moveToFirst();
         return  mCursor;
+    }
+
+    public List<Receta> getListRecetas(){
+        Cursor mCursor = db.query(TABLE_RECETAS,new String[] {Recetas.ID_RECETA,Recetas.NAME,Recetas.DESC,Recetas.IMAGEN},null,null,null,null,Recetas.NAME);
+        List<Receta> result=new ArrayList<>();
+        if(mCursor != null){
+            mCursor.moveToFirst();
+            while (mCursor.moveToNext()){
+                Receta rec=new Receta(mCursor.getInt(mCursor.getColumnIndex(Recetas.ID_RECETA)),mCursor.getString(mCursor.getColumnIndex(Recetas.NAME)),mCursor.getString(mCursor.getColumnIndex(Recetas.DESC)),mCursor.getString(mCursor.getColumnIndex(Recetas.IMAGEN)));
+
+                result.add(rec);
+            }
+        }
+        return  result;
     }
 
     public List<Ingrediente> fetchListAllIngredientes(){
@@ -234,5 +261,37 @@ public class gestDB {
         Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
         if(mCursor != null) mCursor.moveToFirst();
         return  mCursor;
+    }
+
+    public List<IngredienteReceta> fetchAllIngredientesRecetaList(int id){
+        String myQuery = "SELECT REC."+recetasIngredientes.ID_RECETAINGREDIENTE+" AS idRecetaIngrediente, ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
+                TABLE_RECETAINGREDIENTES+" REC "+
+                "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+recetasIngredientes.ID_INGREDIENTE+" "+
+                "WHERE REC."+recetasIngredientes.ID_RECETA+"=?";
+
+        String myQuery2 = "SELECT ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
+                TABLE_SUBSTITUTIVOS+" REC "+
+                "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+Substitutivos.ID_INGREDIENTE+" "+
+                "WHERE REC."+Substitutivos.ID_RECETAINGREDIENTE+"=?";
+
+        Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
+        List<IngredienteReceta> result = new ArrayList<>();
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+            while (mCursor.moveToNext()){
+                int idRecetaIngrediente = mCursor.getInt(mCursor.getColumnIndex("idRecetaIngrediente"));
+                IngredienteReceta ingRec = new IngredienteReceta(mCursor.getString(mCursor.getColumnIndex(Ingredientes.NOMBRE)),mCursor.getInt(mCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
+                Cursor iCursor = db.rawQuery(myQuery2,new String[]{String.valueOf(idRecetaIngrediente)});
+                if(iCursor != null) {
+                    iCursor.moveToFirst();
+                    while (iCursor.moveToNext()){
+                        Ingrediente ing=new Ingrediente(iCursor.getString(iCursor.getColumnIndex(Ingredientes.NOMBRE)),iCursor.getInt(iCursor.getColumnIndex(Ingredientes.ID_INGREDIENTE)));
+                        ingRec.addSubstitutivo(ing);
+                    }
+                }
+                result.add(ingRec);
+            }
+        }
+        return  result;
     }
 }

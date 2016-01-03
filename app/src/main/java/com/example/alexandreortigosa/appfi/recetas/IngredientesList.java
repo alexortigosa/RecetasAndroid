@@ -12,18 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class IngredientesList extends Fragment {
 
     private ListView list;
     private SimpleCursorAdapter dataAdapter;
+    private IngredientesRecetasAdapter iAdapter;
     private gestDB gesdb;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -91,12 +94,21 @@ public class IngredientesList extends Fragment {
 
         gesdb=new gestDB(getActivity().getApplicationContext());
         gesdb.open();
-        Cursor cursor = gesdb.fetchAllIngredientesReceta(receta.getId());
+        /*Cursor cursor = gesdb.fetchAllIngredientesReceta(receta.getId());
         //startManagingCursor(cursor);
         String[] columns = new String[]{gestDB.Ingredientes.ID_INGREDIENTE,gestDB.Ingredientes.NOMBRE};
         int[] to = new int[]{R.id.idIngrediente,R.id.nameIngrediente};
         dataAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente,cursor,columns,to);
-        list.setAdapter(dataAdapter);
+        list.setAdapter(dataAdapter);*/
+
+        iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,receta.getIngredientes());
+        list.setAdapter(iAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

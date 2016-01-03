@@ -26,4 +26,5 @@
     <string name="title_activity_add_subs">addSubs</string>
     <string name="add_Receta_add">Guardar Receta</string>
     <string name="add_Receta_Ingredientes">Ingredientes</string>
+    <string name="intent_Receta">RECETA</string>
 </resources>

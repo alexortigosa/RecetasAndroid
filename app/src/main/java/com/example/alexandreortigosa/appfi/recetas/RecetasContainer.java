@@ -13,6 +13,7 @@ import android.view.MenuItem;
 public class RecetasContainer extends AppCompatActivity implements RecetaDeatails.OnFragmentInteractionListener,IngredientesList.OnFragmentInteractionListener {
     private RecetasDetAdapter rAdapter;
     private int idReceta;
+    private Receta receta;
     private String STATUS;
 
     @Override
@@ -43,7 +44,10 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        idReceta=intent.getIntExtra(gestDB.Recetas.NAME,9999);
+        receta=(Receta)intent.getSerializableExtra(getResources().getString(R.string.intent_Receta));
+        idReceta=receta.getId();
+        receta.updateDadesReceta(getApplicationContext());
+        //idReceta=intent.getIntExtra(gestDB.Recetas.NAME,9999);
         STATUS=intent.getStringExtra(RecetaDeatails.STATE);
         setContentView(R.layout.activity_recetas_container);
         rAdapter = new RecetasDetAdapter(getSupportFragmentManager(),RecetasContainer.this);
@@ -60,10 +64,12 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
         rAdapter.setStatus(STATUS);
         switch (STATUS){
             case RecetaDeatails.STATE_SHOW:
-                rAdapter.setearReceta(idReceta);
+                rAdapter.setearReceta(receta);
+                //rAdapter.setearReceta(idReceta);
                 break;
             case RecetaDeatails.STATE_EDIT:
-                rAdapter.setearReceta(idReceta);
+                rAdapter.setearReceta(receta);
+                //rAdapter.setearReceta(idReceta);
                 break;
             case RecetaDeatails.STATE_ADD:
                 break;
