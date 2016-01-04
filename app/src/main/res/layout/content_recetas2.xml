@@ -11,7 +11,15 @@
     android:background="@color/BackgroundColorSecundary">
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/listViewRecetas" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="No existen Recetas"
+        android:padding="20dp"
+        android:id="@+id/emptyListRecetas"
+         />
 </RelativeLayout>

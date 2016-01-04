@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -77,12 +78,14 @@ public class Recetas extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Receta rec = aRecetas.getItem(i);
                 Intent intent = new Intent(getApplicationContext(), RecetasContainer.class);
-                intent.putExtra(getResources().getString(R.string.intent_Receta),rec);
-                intent.putExtra(RecetaDeatails.STATE,RecetaDeatails.STATE_SHOW);
+                intent.putExtra(getResources().getString(R.string.intent_Receta), rec);
+                intent.putExtra(RecetaDeatails.STATE, RecetaDeatails.STATE_SHOW);
                 startActivity(intent);
 
             }
         });
+        TextView empty=(TextView)findViewById(R.id.emptyListRecetas);
+        list.setEmptyView(empty);
     }
 
     private void refreshList(){

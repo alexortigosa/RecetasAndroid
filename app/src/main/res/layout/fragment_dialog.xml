@@ -8,4 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addInglistView" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="No quedan ingredientes"
+        android:padding="20dp"
+        android:id="@+id/emptyListDialog"
+        android:layout_weight="0.1" />
+
 </LinearLayout>

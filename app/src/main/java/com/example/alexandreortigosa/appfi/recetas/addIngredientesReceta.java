@@ -5,9 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,14 +14,15 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +115,8 @@ public class addIngredientesReceta extends AppCompatActivity {
                 builder.create().show();
             }
         });
+        TextView empty=(TextView)findViewById(R.id.emptyList);
+        list.setEmptyView(empty);
         registerForContextMenu(list);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -137,6 +137,8 @@ public class addIngredientesReceta extends AppCompatActivity {
                     final ListView listAdding = (ListView) dialogLayout.findViewById(R.id.addInglistView);
 
                     listAdding.setAdapter(aAdapter);
+                    TextView empty=(TextView)dialogLayout.findViewById(R.id.emptyListDialog);
+                    listAdding.setEmptyView(empty);
                     listAdding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

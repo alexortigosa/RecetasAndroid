@@ -23,6 +23,14 @@
             android:layout_height="match_parent"
             android:id="@+id/addRecetalistViewIngreDientes"
             android:layout_weight="0.1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Sin Ingredientes"
+            android:padding="20dp"
+            android:id="@+id/emptyList"
+            android:layout_weight="0.1" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -45,6 +53,7 @@
                 android:id="@+id/textView89"
                 android:layout_weight="0.8" />
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

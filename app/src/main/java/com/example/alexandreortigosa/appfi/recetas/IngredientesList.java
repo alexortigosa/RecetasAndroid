@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,6 +137,8 @@ public class IngredientesList extends Fragment {
 
         iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,ingredientes);
         list.setAdapter(iAdapter);
+        TextView empty=(TextView)myFragmentView.findViewById(R.id.emptyListRecetasDetails);
+        list.setEmptyView(empty);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -150,6 +153,8 @@ public class IngredientesList extends Fragment {
                 List<Ingrediente> listaux = ingSeleceted.getSubstitutivos();
                 ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), R.layout.row_ingrediente_adding, ingSeleceted.getSubstitutivos());
                 listSubs.setAdapter(adapter);
+                TextView empty=(TextView)v.findViewById(R.id.emptyListRecetasDetailsSubs);
+                listSubs.setEmptyView(empty);
                 builder.setTitle(R.string.dialog_Receta_Substitutivos_title);
                 builder.setView(v)
 

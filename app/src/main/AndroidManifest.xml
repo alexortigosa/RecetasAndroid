@@ -34,7 +34,8 @@
         <activity
             android:name=".Ingredientes"
             android:label="@string/title_activity_ingredientes"
-            android:theme="@style/customThemeCompat" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity android:name=".addReceta1" />
         <activity
             android:name=".addIngredientesReceta"

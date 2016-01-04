@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,8 @@ public class addSubs extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.addIngredienteSubstitutivo);
         list.setAdapter(aContentAdapter);
+        TextView empty=(TextView)findViewById(R.id.emptyListSubs);
+        list.setEmptyView(empty);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -114,6 +117,8 @@ public class addSubs extends AppCompatActivity {
                 final ListView listAdding = (ListView) dialogLayout.findViewById(R.id.addInglistView);
 
                 listAdding.setAdapter(aAdapter);
+                TextView empty=(TextView)dialogLayout.findViewById(R.id.emptyListDialog);
+                listAdding.setEmptyView(empty);
                 listAdding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

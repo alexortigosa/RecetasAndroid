@@ -43,6 +43,7 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
     private static final String NAME="NOMBRE";
     private static final String DESC="DESCRIP";
     private static final String PHOTO="PHOTO";
+    static final String STATE_RECETA = "receta";
     private static final int SELECT_PHOTO = 100;
     private String STATUS;
     private View myFragmentView;
@@ -140,24 +141,17 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
         nombre.setOnLongClickListener(this);
         desc.setOnLongClickListener(this);
         photo.setOnLongClickListener(this);
+        setInfo();
 
-
-        //setStyle();
-        switch (STATUS){
-            case (STATE_ADD):
-                setAdd();
-                break;
-            case (STATE_EDIT):
-                setInfo();
-                break;
-            case (STATE_SHOW):
-                setInfo();
-                break;
-            default:
-                break;
-        }
         return myFragmentView;
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null)
+            receta=(Receta)savedInstanceState.getSerializable(STATE_RECETA);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

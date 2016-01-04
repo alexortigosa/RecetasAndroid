@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +38,9 @@ public class Ingredientes extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.listViewIngredientes);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabIngredientes);
         fab.setOnClickListener(new View.OnClickListener() {

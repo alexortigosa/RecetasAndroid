@@ -22,6 +22,7 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
     private int idReceta;
     private Receta receta;
     private String STATUS;
+    static final String STATE_RECETA = "receta";
     private static final int INGREDIENTES_EDIT = 102;
 
    /* @Override
@@ -53,9 +54,16 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        receta=(Receta)intent.getSerializableExtra(getResources().getString(R.string.intent_Receta));
-        idReceta=receta.getId();
-        receta.updateDadesReceta(getApplicationContext());
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            receta = (Receta)savedInstanceState.getSerializable(STATE_RECETA);
+            idReceta=receta.getId();
+        } else {
+            receta = (Receta) intent.getSerializableExtra(getResources().getString(R.string.intent_Receta));
+            idReceta = receta.getId();
+            receta.updateDadesReceta(getApplicationContext());
+        }
+
         //idReceta=intent.getIntExtra(gestDB.Recetas.NAME,9999);
         STATUS=intent.getStringExtra(RecetaDeatails.STATE);
         setContentView(R.layout.activity_recetas_container);
@@ -63,7 +71,7 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         rAdapter = new RecetasDetAdapter(getSupportFragmentManager(),RecetasContainer.this);
-
+        rAdapter.setearReceta(receta);
         ViewPager vPager = (ViewPager) findViewById(R.id.viewpager);
         vPager.setAdapter(rAdapter);
 
@@ -91,6 +99,15 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
 
 
 
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(STATE_RECETA,receta);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(outState);
 
     }
 
