@@ -33,8 +33,8 @@ public class addSubs extends AppCompatActivity {
     private Context myContext;
     private AlertDialog dialog;
     private View dialogLayout;
-    private ArrayAdapter<Ingrediente> aAdapter;
-    private ArrayAdapter<Ingrediente> aContentAdapter;
+    private IngredientesAdapterAdd aAdapter;
+    private IngredientesAdapterAdd aContentAdapter;
     private List<Ingrediente> lIngredientes;
     private List<Ingrediente> lContentIngredientes;
     private Button bAddIngredientes;
@@ -57,8 +57,8 @@ public class addSubs extends AppCompatActivity {
         lContentIngredientes= cLi.getSubstitutivos();
         lIngredientes=gesdb.fetchListAllIngredientes();
         lIngredientes=reduceIngregientes();
-        aAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lIngredientes);
-        aContentAdapter = new ArrayAdapter<Ingrediente>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
+        aAdapter = new IngredientesAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lIngredientes,IngredientesAdapterAdd.MODE_ADD);
+        aContentAdapter = new IngredientesAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lContentIngredientes,IngredientesAdapterAdd.MODE_SUB);
         bAddIngredientes = (Button) findViewById(R.id.addIngredienteSubButton);
         bAddIngredientes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,5 +171,6 @@ public class addSubs extends AppCompatActivity {
         }
         return lisAux;
     }
+
 
 }
