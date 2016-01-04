@@ -92,6 +92,8 @@ public class Recetas extends AppCompatActivity {
         /*cursor = gesdb.fetchAllRecetas();
         dataAdapter.notifyDataSetChanged();*/
         recetas=gesdb.getListRecetas();
+        aRecetas = new RecetasAdapter(getApplicationContext(),R.layout.row_receta,recetas);
+        list.setAdapter(aRecetas);
         aRecetas.notifyDataSetChanged();
 
     }

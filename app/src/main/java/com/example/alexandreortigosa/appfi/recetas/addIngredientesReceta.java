@@ -98,6 +98,8 @@ public class addIngredientesReceta extends AppCompatActivity {
                 View v = inflater.inflate(R.layout.dialog_ingrediente_sub_receta, null);
                 ListView listSubs = (ListView) v.findViewById(R.id.RecetaSubsShow);
                 listSubs.setClickable(false);
+                TextView empty=(TextView)v.findViewById(R.id.emptyListRecetasDetailsSubs);
+                listSubs.setEmptyView(empty);
                 List<Ingrediente> listaux = ingSeleceted.getSubstitutivos();
                 ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.row_ingrediente_adding, ingSeleceted.getSubstitutivos());
                 listSubs.setAdapter(adapter);

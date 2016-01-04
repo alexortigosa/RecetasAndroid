@@ -14,11 +14,16 @@
         android:focusableInTouchMode="true"
         android:weightSum="1">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.17">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.16">
+            >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -26,90 +31,116 @@
                 android:id="@+id/addRecetaPhoto"
                 android:layout_weight="1"/>
         </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.22">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:id="@+id/addReceta_Name"
+                    android:layout_weight="1"
+                    android:textSize="25dp"
+                    android:hint="@string/addReceta_name"/>
+            </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.17">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.2">
-
-
+            >
             <EditText
-                android:layout_width="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:maxLines="20"
                 android:layout_height="match_parent"
-                android:maxLines="1"
-                android:id="@+id/addReceta_Name"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                android:hint="@string/addReceta_name"/>
-        </LinearLayout>
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:id="@+id/addReceta_Desc"
+                android:layout_weight="0.15"
+                android:textSize="15dp"
+                android:hint="@string/addReceta_Desc"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/addReceta_checkedButton"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkedonly" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/addReceta_cancelButton"
+                    android:layout_weight="1"
+                    android:background="@drawable/canceltynired" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.2">
-        <EditText
-            android:inputType="textMultiLine"
-            android:lines="8"
-            android:minLines="6"
-            android:gravity="top|left"
-            android:maxLines="20"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:scrollbars="vertical"
-            android:id="@+id/addReceta_Desc"
-            android:layout_weight="0.15"
-            android:textSize="15dp"
-            android:hint="@string/addReceta_Desc"/>
+        android:layout_weight="0.22">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.85">
-
+            >
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/addReceta_checkedButton"
-                android:layout_weight="1"
-                android:background="@drawable/checkedonly" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/addReceta_cancelButton"
-                android:layout_weight="1"
-                android:background="@drawable/canceltynired" />
+                android:text="@string/add_Receta_Ingredientes"
+                android:background="@drawable/button"
+                style="@style/button_text"
+                android:id="@+id/addReceta_ButtonIng" />
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.22">
-        <Button
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/add_Receta_Ingredientes"
-            android:background="@drawable/button"
-            style="@style/button_text"
-            android:id="@+id/addReceta_ButtonIng" />
-    </LinearLayout>
+            >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/add_Receta_add"
+                android:background="@drawable/button"
+                style="@style/button_text"
+                android:id="@+id/addReceta_ButtonAdd" />
+        </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.22">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/add_Receta_add"
-            android:background="@drawable/button"
-            style="@style/button_text"
-            android:id="@+id/addReceta_ButtonAdd" />
-    </LinearLayout>
-
-    </LinearLayout>
+</LinearLayout>

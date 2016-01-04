@@ -6,11 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -39,6 +41,16 @@ public class addReceta1 extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_add_receta1);
         lIngredientes= new ArrayList();
         eName = (EditText)findViewById(R.id.addReceta_Name);
+        eName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER){
+                    hideSoftKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
         eDesc = (EditText)findViewById(R.id.addReceta_Desc);
         imgView = (ImageView) findViewById(R.id.addRecetaPhoto);
         imgView.setImageDrawable(getResources().getDrawable(R.drawable.addcamera));

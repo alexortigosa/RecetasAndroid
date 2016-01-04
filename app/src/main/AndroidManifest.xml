@@ -36,7 +36,8 @@
             android:label="@string/title_activity_ingredientes"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".addReceta1" />
+        <activity android:name=".addReceta1"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".addIngredientesReceta"
             android:label="@string/title_activity_add_ingredientes_receta"
