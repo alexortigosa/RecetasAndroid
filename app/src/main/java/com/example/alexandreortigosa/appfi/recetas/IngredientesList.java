@@ -44,7 +44,17 @@ public class IngredientesList extends Fragment {
     private Receta receta;
     private String STATUS;
     private static final int INGREDIENTES_EDIT = 102;
+    static final String STATE_RECETA = "receta";
+    static final String STATE_LISTA = "lista";
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(STATE_RECETA,receta);
+        outState.putSerializable(STATE_LISTA,new CustomListIng(ingredientes));
+        super.onSaveInstanceState(outState);
+
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -105,23 +115,23 @@ public class IngredientesList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(savedInstanceState!=null){
+            receta=(Receta)savedInstanceState.getSerializable(STATE_RECETA);
+            CustomListIng aux = (CustomListIng)savedInstanceState.getSerializable(STATE_LISTA);
+            ingredientes=aux.getIngredientes();
+        }
         myFragmentView=inflater.inflate(R.layout.activity_ingredientes_list, container, false);
         list = (ListView) myFragmentView.findViewById(R.id.listaingredientes);
-        switch (STATUS){
-            case RecetaDeatails.STATE_ADD:
-                break;
-            case RecetaDeatails.STATE_EDIT:
-                setList();
-                break;
-            case RecetaDeatails.STATE_SHOW:
-                setList();
-                break;
-            default:
-                break;
-        }
+        setList();
+
 
         return myFragmentView;
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     private void setList(){
@@ -138,6 +148,13 @@ public class IngredientesList extends Fragment {
         iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,ingredientes);
         list.setAdapter(iAdapter);
         TextView empty=(TextView)myFragmentView.findViewById(R.id.emptyListRecetasDetails);
+        empty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editConfirmation();
+
+            }
+        });
         list.setEmptyView(empty);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -132,6 +132,8 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(savedInstanceState!=null)
+            receta=(Receta)savedInstanceState.getSerializable(STATE_RECETA);
         myFragmentView=inflater.inflate(R.layout.content_receta_deatails, container, false);
         nombre=(TextView ) myFragmentView.findViewById(R.id.DetalleRecetaName);
         desc=(TextView ) myFragmentView.findViewById(R.id.DetalleRecetaDesc);
@@ -152,6 +154,18 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState!=null)
             receta=(Receta)savedInstanceState.getSerializable(STATE_RECETA);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(STATE_RECETA,receta);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
