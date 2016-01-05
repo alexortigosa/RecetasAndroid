@@ -196,19 +196,11 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
     {
         nombre.setText(receta.getName());
         desc.setText(receta.getDescripccio());
-        if(receta.getPhoto()!=null) {
-            Uri selectedImage = Uri.parse(receta.getPhoto());
-            InputStream imageStream = null;
-            try {
-                imageStream = getActivity().getApplicationContext().getContentResolver().openInputStream(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-            photo.setImageBitmap(bitmap);
-        }
+        if(receta.getPhoto()!=null)
+            photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getActivity().getApplicationContext(),receta.getPhoto(),200,200));
+
         else {
-            photo.setImageResource(R.drawable.addcamera);
+            photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getResources(),R.drawable.addcamera,200,200));
         }
     }
 

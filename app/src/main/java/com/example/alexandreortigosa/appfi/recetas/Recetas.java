@@ -1,6 +1,8 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -97,5 +99,7 @@ public class Recetas extends AppCompatActivity {
         aRecetas.notifyDataSetChanged();
 
     }
+
+
 
 }

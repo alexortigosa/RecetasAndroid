@@ -2,10 +2,12 @@ package com.example.alexandreortigosa.appfi.recetas;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -145,19 +147,9 @@ public class addReceta1 extends Activity implements View.OnClickListener{
         switch(requestCode) {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
-
-                    try {
                         Uri selectedImage = imageReturnedIntent.getData();
-                        receta.setPhoto(selectedImage.toString());
-                        InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-                        imgView.setImageBitmap(yourSelectedImage);
-
-                    }
-                    catch (FileNotFoundException e){
-                        e.printStackTrace();
-                    }
-
+                        receta.setPhoto(getPath(selectedImage));
+                        imgView.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getApplicationContext(),receta.getPhoto(),200,200));
                 }
                 break;
             case INGREDIENTES_ADD:
@@ -167,4 +159,25 @@ public class addReceta1 extends Activity implements View.OnClickListener{
                 }
         }
     }
+
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+            // TODO perform some logging or show user feedback
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if( cursor != null ){
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        // this is our fallback here
+        return uri.getPath();
+    }
+
 }
