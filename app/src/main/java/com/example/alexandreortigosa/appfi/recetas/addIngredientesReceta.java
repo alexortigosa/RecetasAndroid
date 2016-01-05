@@ -158,13 +158,7 @@ public class addIngredientesReceta extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
 
                                 }
-                            }).setNegativeButton(R.string.dialog_add_cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                            dialog.cancel();
-                            dialog.dismiss();
-                        }
-                    });
+                            });
                     // 3. Get the AlertDialog from create()
                     dialog = builder.create();
                     dialog.show();

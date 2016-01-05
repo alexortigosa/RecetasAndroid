@@ -20,7 +20,7 @@ import java.util.ListIterator;
  */
 public class gestDB {
 
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 13;
     private static final String DATABASE_NAME = "dataBase.db";
 
     //Definición de tabla login

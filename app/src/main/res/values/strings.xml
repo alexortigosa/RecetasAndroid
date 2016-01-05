@@ -10,7 +10,7 @@
     <string name="title_activity_recetas">Recetas</string>
     <string name="title_activity_receta_deatails">RecetaDeatails</string>
     <string name="title_activity_ingredientes">Ingredientes</string>
-    <string name="dialog_add_ok">Guardar</string>
+    <string name="dialog_add_ok">Aceptar</string>
     <string name="dialog_add_cancel">Cancelar</string>
     <string name="dialog_add_name_ingre">Nombre Ingrediente</string>
     <string name="dialog_add_titulo">Añade un ingrediente</string>
