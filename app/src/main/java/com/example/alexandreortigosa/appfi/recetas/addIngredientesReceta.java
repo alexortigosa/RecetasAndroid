@@ -35,7 +35,7 @@ public class addIngredientesReceta extends AppCompatActivity {
     private AlertDialog dialog;
     private View dialogLayout;
     private IngredientesRecetaAdapterAdd aAdapter;
-    private ArrayAdapter<IngredienteReceta> aContentAdapter;
+    private IngredientesRecetaAdapterAdd aContentAdapter;
     private List<IngredienteReceta> lIngredientes;
     private List<IngredienteReceta> lContentIngredientes;
     private Button bAddIngredientes;
@@ -70,8 +70,8 @@ public class addIngredientesReceta extends AppCompatActivity {
         lContentIngredientes= cLi.getIngredientes();
         lIngredientes=gesdb.fetchListAllIngredientesReceta();
         lIngredientes=reduceIngregientes();
-        aAdapter = new IngredientesRecetaAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lIngredientes);
-        aContentAdapter = new ArrayAdapter<IngredienteReceta>(getApplicationContext(),R.layout.row_ingrediente_adding,lContentIngredientes);
+        aAdapter = new IngredientesRecetaAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lIngredientes,IngredientesRecetaAdapterAdd.MODE_ADD);
+        aContentAdapter = new IngredientesRecetaAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lContentIngredientes,IngredientesRecetaAdapterAdd.MODE_OPT);
         bAddIngredientes = (Button) findViewById(R.id.addIngredientesRecetaResult);
         bAddIngredientes.setOnClickListener(new View.OnClickListener() {
             @Override

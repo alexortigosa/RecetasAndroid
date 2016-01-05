@@ -32,14 +32,24 @@ public class addReceta1 extends Activity implements View.OnClickListener{
     List<IngredienteReceta> lIngredientes;
     private static final int SELECT_PHOTO = 100;
     private static final int INGREDIENTES_ADD = 102;
+    private static final String RECETA = "receta";
+    private static final String LISTA = "lista";
     private gestDB gesdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        receta=new Receta();
+        if(savedInstanceState!=null){
+            receta=(Receta)savedInstanceState.getSerializable(RECETA);
+            CustomListIng aux = (CustomListIng)savedInstanceState.getSerializable(LISTA);
+            lIngredientes=aux.getIngredientes();
+        }
+        else{
+            receta=new Receta();
+            lIngredientes= new ArrayList();
+        }
         setContentView(R.layout.activity_add_receta1);
-        lIngredientes= new ArrayList();
+
         eName = (EditText)findViewById(R.id.addReceta_Name);
         eName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -63,6 +73,13 @@ public class addReceta1 extends Activity implements View.OnClickListener{
         bIngredientes.setOnClickListener(this);
         bSave=(Button)findViewById(R.id.addReceta_ButtonAdd);
         bSave.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(RECETA, receta);
+        outState.putSerializable(LISTA,new CustomListIng(lIngredientes));
+        super.onSaveInstanceState(outState);
     }
 
     private void selectImage(){
