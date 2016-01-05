@@ -136,14 +136,6 @@ public class IngredientesList extends Fragment {
 
     private void setList(){
 
-        //gesdb=new gestDB(getActivity().getApplicationContext());
-        //gesdb.open();
-        /*Cursor cursor = gesdb.fetchAllIngredientesReceta(receta.getId());
-        //startManagingCursor(cursor);
-        String[] columns = new String[]{gestDB.Ingredientes.ID_INGREDIENTE,gestDB.Ingredientes.NOMBRE};
-        int[] to = new int[]{R.id.idIngrediente,R.id.nameIngrediente};
-        dataAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente,cursor,columns,to);
-        list.setAdapter(dataAdapter);*/
 
         iAdapter = new IngredientesRecetasAdapter(getActivity().getApplicationContext(),R.layout.row_ingrediente_new,ingredientes);
         list.setAdapter(iAdapter);

@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/BackgroundColorSecundary">
 
    <ListView
        android:layout_width="match_parent"
@@ -14,6 +14,6 @@
         android:text="Sin Ingredientes"
         android:padding="20dp"
         android:id="@+id/emptyListRecetasDetails"
-        />
+        android:textColor="@color/BackGroundColor" />
 
 </FrameLayout>

@@ -18,7 +18,7 @@
         android:minLines="6"
         android:gravity="top|left"
         android:maxLines="20"
-        android:hint="@string/dialog_add_name_ingre" />
+        android:hint="Insertar Descripcción" />
 
 
 </LinearLayout>
