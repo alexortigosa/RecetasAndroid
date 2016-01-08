@@ -34,5 +34,6 @@
     <string name="dialog_Receta_Edit_Photo_check">Quiere modificar la imagen?</string>
     <string name="dialog_Receta_Edit_Ingredientes_check">Quiere modificar los ingredientes?</string>
     <string name="dialog_Receta_Substitutivos_title">Lista de substitutivos</string>
+    <string name="button_add_lista_ingredientes">Guardar</string>
 
 </resources>
