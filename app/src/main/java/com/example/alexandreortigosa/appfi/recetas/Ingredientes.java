@@ -10,11 +10,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import java.util.List;
 
 public class Ingredientes extends AppCompatActivity {
 
@@ -25,6 +30,9 @@ public class Ingredientes extends AppCompatActivity {
     private AlertDialog dialog;
     private View dialogLayout;
     private boolean adding;
+    private IngredientesAdapterAdd aContentAdapter;
+    private List<Ingrediente> lContentIngredientes;
+    EditText search;
 
 
 
@@ -37,10 +45,20 @@ public class Ingredientes extends AppCompatActivity {
         adding=false;
 
         list = (ListView) findViewById(R.id.listViewIngredientes);
+        search = (EditText) findViewById(R.id.addIngredientesSearch);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.backlittle));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabIngredientes);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +86,19 @@ public class Ingredientes extends AppCompatActivity {
 
                                     if (dialText.getText().length() != 0) {
                                         Ingrediente ingrediente = new Ingrediente(dialText.getText().toString());
-                                        gesdb.insertIngrediente(ingrediente);
+                                        if(gesdb.insertIngrediente(ingrediente)==-109){
+                                            Snackbar.make(view, R.string.dialog_exist_text, Snackbar.LENGTH_SHORT)
+                                                    .setAction("Action", null).show();
 
-                                        refresList();
+                                        }
+                                        else {
+                                            Snackbar.make(view, R.string.dialog_add_text, Snackbar.LENGTH_SHORT)
+                                                    .setAction("Action", null).show();
+
+                                            refresList();
+                                        }
+
+
                                     }
                                     else{
                                         Snackbar.make(view, R.string.dialog_empty_text, Snackbar.LENGTH_SHORT)
@@ -94,17 +122,45 @@ public class Ingredientes extends AppCompatActivity {
 
         gesdb=new gestDB(getApplicationContext());
         gesdb.open();
-        refresList();
+        lContentIngredientes=gesdb.fetchListAllIngredientes();
+        aContentAdapter = new IngredientesAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lContentIngredientes,IngredientesAdapterAdd.MODE_ING);
+        search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //System.out.println("Text ["+s+"]");
+
+                aContentAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        /*Cursor cursor = gesdb.fetchAllIngredientes();
+        //startManagingCursor(cursor);
+        String[] columns = new String[]{gestDB.Ingredientes.NOMBRE};
+        int[] to = new int[]{R.id.nameIngredienteLast};
+        dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_ingrediente_last,cursor,columns,to);*/
+        list.setAdapter(aContentAdapter);
 
     }
 
     private void refresList(){
-        Cursor cursor = gesdb.fetchAllIngredientes();
-        //startManagingCursor(cursor);
-        String[] columns = new String[]{gestDB.Ingredientes.NOMBRE};
-        int[] to = new int[]{R.id.nameIngredienteLast};
-        dataAdapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.row_ingrediente_last,cursor,columns,to);
-        list.setAdapter(dataAdapter);
+
+        aContentAdapter.notifyDataSetChanged();
+        lContentIngredientes=gesdb.fetchListAllIngredientes();
+        aContentAdapter = new IngredientesAdapterAdd(getApplicationContext(),R.layout.row_ingrediente_new_add,lContentIngredientes,IngredientesAdapterAdd.MODE_ING);
+
+        aContentAdapter.getFilter().filter(search.getText().toString());
+        list.setAdapter(aContentAdapter);
 
     }
 

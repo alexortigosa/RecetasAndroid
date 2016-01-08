@@ -45,7 +45,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Añadir lista"
+                android:textSize="20dp"
                 android:background="@drawable/button"
+                style="@style/button_text"
                 android:id="@+id/addIngredienteSubButton"
                 android:layout_weight="0.2" />
 

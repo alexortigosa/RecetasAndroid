@@ -64,7 +64,7 @@ public class IngredientesRecetaAdapterAdd extends ArrayAdapter<IngredienteReceta
                 break;
         }
 
-        holder.imgReceta.setBackground(drawable);
+        holder.imgReceta.setImageDrawable(drawable);
         holder.nombre.setText(ing.getName());
         //holder.desc.setText(receta.getDescripccio().substring(0,25));
         return row;

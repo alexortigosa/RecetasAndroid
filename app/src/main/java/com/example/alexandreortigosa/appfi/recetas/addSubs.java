@@ -46,8 +46,16 @@ public class addSubs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.backlittle));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         Intent intent = getIntent();
         cLi = (IngredienteReceta) intent.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Subs_Intent));

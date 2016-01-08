@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -69,6 +70,14 @@ public class RecetasContainer extends AppCompatActivity implements RecetaDeatail
         setContentView(R.layout.activity_recetas_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarReceta);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.backlittle));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         rAdapter = new RecetasDetAdapter(getSupportFragmentManager(),RecetasContainer.this);
         rAdapter.setearReceta(receta);

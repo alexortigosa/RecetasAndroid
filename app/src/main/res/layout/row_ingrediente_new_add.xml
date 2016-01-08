@@ -10,14 +10,14 @@
         android:text="New Text"
         android:id="@+id/IngredienteRecetaNewNameAdd"
         android:layout_weight="0.2"
-        android:gravity="center_vertical|center_horizontal"
         android:textSize="24dp"
-        android:textColor="@color/BackGroundColor" />
+        android:textColor="@color/BackGroundColor"
+        android:paddingLeft="10dp" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/IngredienteRecetaNewCancelAdd"
         android:layout_weight="0.8"
-        android:background="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add" />
 </LinearLayout>

@@ -146,11 +146,20 @@ public class gestDB {
     }
 
     public long insertIngrediente(Ingrediente ing){
-        ContentValues values = new ContentValues();
-        //values.put(Ingredientes.ID_INGREDIENTE, ing.getId());
-        values.put(Ingredientes.NOMBRE, ing.getName());
-        long id = db.insert(TABLE_INGREDIENTE, null, values);
-        return id;
+
+        Cursor mCursor = db.query(TABLE_INGREDIENTE,new String[] {Ingredientes.ID_INGREDIENTE,Ingredientes.NOMBRE},Ingredientes.NOMBRE+" = ?",  new String[] {ing.getName()},null,null,null);
+        if(mCursor != null && mCursor.getCount()>0)
+        {
+            return -109;
+
+        }
+        else {
+            ContentValues values = new ContentValues();
+            //values.put(Ingredientes.ID_INGREDIENTE, ing.getId());
+            values.put(Ingredientes.NOMBRE, ing.getName());
+            long id = db.insert(TABLE_INGREDIENTE, null, values);
+            return id;
+        }
     }
 
     public long changeStringsReceta(Receta rec){

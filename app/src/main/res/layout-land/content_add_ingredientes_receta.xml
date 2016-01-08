@@ -45,6 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/button_add_lista_ingredientes"
+                android:textSize="20dp"
+                style="@style/button_text"
                 android:background="@drawable/button"
                 android:id="@+id/addIngredientesRecetaResult"
                 android:layout_weight="0.2" />

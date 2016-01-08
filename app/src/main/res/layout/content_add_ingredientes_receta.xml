@@ -19,20 +19,26 @@
         android:layout_height="match_parent"
         android:weightSum="1">
 
-        <ListView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/addRecetalistViewIngreDientes"
-            android:layout_weight="0.1" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Sin Ingredientes"
-            android:padding="20dp"
-            android:id="@+id/emptyList"
-            android:layout_weight="0.1"
-            android:textColor="@color/BackGroundColor" />
+            android:layout_weight="0.1">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/addRecetalistViewIngreDientes" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Sin Ingredientes"
+                android:padding="20dp"
+                android:id="@+id/emptyList"
+                android:textColor="@color/BackGroundColor" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -45,6 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/button_add_lista_ingredientes"
+                style="@style/button_text"
+                android:textSize="20dp"
                 android:background="@drawable/button"
                 android:id="@+id/addIngredientesRecetaResult"
                 android:layout_weight="0.2" />

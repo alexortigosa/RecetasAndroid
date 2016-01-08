@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,7 +23,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class addReceta1 extends Activity implements View.OnClickListener{
+public class addReceta1 extends AppCompatActivity implements View.OnClickListener{
 
     EditText eName;
     EditText eDesc;
@@ -51,7 +53,16 @@ public class addReceta1 extends Activity implements View.OnClickListener{
             lIngredientes= new ArrayList();
         }
         setContentView(R.layout.activity_add_receta1);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.backlittle));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         eName = (EditText)findViewById(R.id.addReceta_Name);
         eName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
