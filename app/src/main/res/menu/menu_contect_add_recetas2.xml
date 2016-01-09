@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#EB6A00"
+    tools:context="com.example.alexandreortigosa.appfi.recetas.BaseActivity">
+
+    <item android:id="@+id/actionBorrar"
+        android:title="@string/action_borrar"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/actionSubstitus"
+        android:title="@string/action_anadir_subs"
+        android:orderInCategory="101" app:showAsAction="never" />
+</menu>

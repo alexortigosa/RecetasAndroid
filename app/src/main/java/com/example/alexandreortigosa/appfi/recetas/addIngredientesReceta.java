@@ -207,7 +207,7 @@ public class addIngredientesReceta extends AppCompatActivity {
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
             ingSelected = (IngredienteReceta) lv.getItemAtPosition(acmi.position);
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_contect_add_recetas, menu);
+            inflater.inflate(R.menu.menu_contect_add_recetas2, menu);
 
 
         }
