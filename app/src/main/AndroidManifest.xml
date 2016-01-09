@@ -29,16 +29,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecetasContainer"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Ingredientes"
             android:label="@string/title_activity_ingredientes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addReceta1"
+            android:label="@string/title_activity_add_receta"
             android:theme="@style/AppTheme.NoActionBar"
-            />
-        <activity android:name=".addReceta1"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".addIngredientesReceta"
             android:label="@string/title_activity_add_ingredientes_receta"
@@ -46,6 +46,10 @@
         <activity
             android:name=".addSubs"
             android:label="@string/title_activity_add_subs"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addRecetaNew"
+            android:label="@string/title_activity_add_receta"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

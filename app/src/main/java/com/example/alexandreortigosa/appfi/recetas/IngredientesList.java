@@ -3,6 +3,7 @@ package com.example.alexandreortigosa.appfi.recetas;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.database.Cursor;
@@ -90,6 +91,8 @@ public class IngredientesList extends Fragment {
                     //receta.setIngredientes(lIngredientesaux.getIngredientes());
                     ingredientes=receta.getIngredientes();
                     setList();
+                    Snackbar.make(myFragmentView, "Cambios guardados", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
 
 
 
@@ -127,6 +130,18 @@ public class IngredientesList extends Fragment {
 
         return myFragmentView;
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setList();
     }
 
     @Override

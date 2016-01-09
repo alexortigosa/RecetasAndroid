@@ -42,6 +42,8 @@ public class Recetas extends AppCompatActivity {
         switch(requestCode) {
             case INGREDIENTES_ADD:
                 if (resultCode == RESULT_OK) {
+                    Snackbar.make(list, "Receta guardada", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                        refreshList();
                 }
                 break;
@@ -73,7 +75,7 @@ public class Recetas extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), addReceta1.class);
+                Intent intent = new Intent(getApplicationContext(), addRecetaNew.class);
                 startActivityForResult(intent, INGREDIENTES_ADD);
             }
         });

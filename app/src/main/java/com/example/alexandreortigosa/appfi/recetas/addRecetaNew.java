@@ -3,11 +3,11 @@ package com.example.alexandreortigosa.appfi.recetas;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -18,12 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class addReceta1 extends AppCompatActivity implements View.OnClickListener{
+public class addRecetaNew extends AppCompatActivity implements View.OnClickListener{
 
     EditText eName;
     EditText eDesc;
@@ -39,7 +37,6 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
     private static final String RECETA = "receta";
     private static final String LISTA = "lista";
     private gestDB gesdb;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +49,8 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
             receta=new Receta();
             lIngredientes= new ArrayList();
         }
-        setContentView(R.layout.activity_add_receta1);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setContentView(R.layout.activity_add_receta_new);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.BackGroundColor));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.backlittle));
@@ -63,6 +60,7 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
                 finish();
             }
         });
+
         eName = (EditText)findViewById(R.id.addReceta_Name);
         eName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -76,7 +74,7 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
         });
         eDesc = (EditText)findViewById(R.id.addReceta_Desc);
         imgView = (ImageView) findViewById(R.id.addRecetaPhoto);
-        //imgView.setImageDrawable(getResources().getDrawable(R.drawable.addcamera));
+        imgView.setImageDrawable(getResources().getDrawable(R.drawable.addcamera));
         imgView.setOnClickListener(this);
         bChecked=(Button) findViewById(R.id.addReceta_checkedButton);
         bCancel=(Button) findViewById(R.id.addReceta_cancelButton);
@@ -86,13 +84,8 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
         bIngredientes.setOnClickListener(this);
         bSave=(Button)findViewById(R.id.addReceta_ButtonAdd);
         bSave.setOnClickListener(this);
-    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(RECETA, receta);
-        outState.putSerializable(LISTA,new CustomListIng(lIngredientes));
-        super.onSaveInstanceState(outState);
+
     }
 
     private void selectImage(){
@@ -106,6 +99,13 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(RECETA, receta);
+        outState.putSerializable(LISTA,new CustomListIng(lIngredientes));
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -158,15 +158,17 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
         switch(requestCode) {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
-                        Uri selectedImage = imageReturnedIntent.getData();
-                        receta.setPhoto(getPath(selectedImage));
-                        imgView.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getApplicationContext(),receta.getPhoto(),200,200));
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    receta.setPhoto(getPath(selectedImage));
+                    imgView.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getApplicationContext(),receta.getPhoto(),200,200));
                 }
                 break;
             case INGREDIENTES_ADD:
                 if(resultCode==Activity.RESULT_OK){
-                   CustomListIng lIngredientesaux = (CustomListIng) imageReturnedIntent.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
+                    CustomListIng lIngredientesaux = (CustomListIng) imageReturnedIntent.getSerializableExtra(getResources().getString(R.string.add_Ingredientes_Intent));
                     lIngredientes=lIngredientesaux.getIngredientes();
+                    Snackbar.make(eName, "Ingredientes añadidos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
         }
     }

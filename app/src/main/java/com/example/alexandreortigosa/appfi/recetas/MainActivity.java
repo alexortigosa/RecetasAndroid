@@ -14,6 +14,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private Button bIngredientes;
     private Button bRecetas;
+    private Button bAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         bIngredientes.setOnClickListener(this);
         bRecetas = (Button) findViewById(R.id.button_recetas_main);
         bRecetas.setOnClickListener(this);
+        bAbout=(Button) findViewById(R.id.buttonAbout);
+        bAbout.setOnClickListener(this);
 
 
     }
@@ -59,11 +62,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case R.id.button_recetas_main:
                 goToRecetas();
                 break;
+            case R.id.buttonAbout:
+                goToAbout();
+                break;
         }
     }
 
     public void goToIngredientes(){
         Intent intent = new Intent(getApplicationContext(), Ingredientes.class);
+        startActivity(intent);
+    }
+
+    public void goToAbout(){
+        Intent intent = new Intent(getApplicationContext(), addRecetaNew.class);
         startActivity(intent);
     }
 

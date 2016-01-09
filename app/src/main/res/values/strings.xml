@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recetas</string>
+    <string name="app_name">Mis Recetas</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -26,6 +26,7 @@
     <string name="add_Substitutivos_delete_title">Quiere borrar el Substituto de la lista?</string>
     <string name="add_Ingredientes_delete_borrar">Borrar</string>
     <string name="title_activity_add_subs">Añadir Substitutivos</string>
+    <string name="title_activity_add_receta">Añadir Receta</string>
     <string name="add_Receta_add">Guardar Receta</string>
     <string name="add_Receta_Ingredientes">Ingredientes</string>
     <string name="intent_Receta">RECETA</string>
@@ -37,5 +38,7 @@
     <string name="dialog_Receta_Edit_Ingredientes_check">Quiere modificar los ingredientes?</string>
     <string name="dialog_Receta_Substitutivos_title">Lista de substitutivos</string>
     <string name="button_add_lista_ingredientes">Guardar</string>
+    <string name="addimagecontent">Imagen</string>
+    <string name="title_activity_add_receta_new">addRecetaNew</string>
 
 </resources>

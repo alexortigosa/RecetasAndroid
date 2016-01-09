@@ -41,7 +41,8 @@
                 style="@style/button_text"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="20dp" />
 
             <Button
                 android:layout_width="match_parent"
@@ -52,7 +53,8 @@
                 android:id="@+id/button_recetas_main"
                 android:layout_below="@+id/button_ing"
                 android:layout_centerHorizontal="true"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="20dp"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -63,7 +65,8 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/buttonAbout"
                 style="@style/button_text"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="20dp"/>
         </LinearLayout>
 
     </LinearLayout>
