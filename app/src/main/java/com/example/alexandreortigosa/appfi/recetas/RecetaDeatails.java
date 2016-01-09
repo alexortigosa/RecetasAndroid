@@ -204,9 +204,31 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
         else desc.setText(getResources().getString(R.string.receta_detalles_empty_desc));
 
         desc.setText(receta.getDescripccio());
-        if(receta.getPhoto()!=null)
-            photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getActivity().getApplicationContext(),receta.getPhoto(),200,200));
-
+        String photoaux=receta.getPhoto();
+        if(photoaux!=null) {
+            if (photoaux.contains("/Custom/id/")) {
+                switch (photoaux.substring(photoaux.length() - 1)) {
+                    case ("0"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo1, 200, 200));
+                        break;
+                    case ("1"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo2, 200, 200));
+                        break;
+                    case ("2"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo3, 200, 200));
+                        break;
+                    case ("3"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo4, 200, 200));
+                        break;
+                    case ("4"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo5, 200, 200));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getActivity().getApplicationContext(), photoaux, 200, 200));
+        }
         else {
             photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getResources(),R.drawable.addcamera,200,200));
         }

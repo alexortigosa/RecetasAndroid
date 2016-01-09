@@ -38,7 +38,7 @@ public class DatosPrueba {
         slite.open();
         for(int i=0; i<=numero;i++){
 
-            Receta rec = new Receta(nombre+String.valueOf(i),Descripcción);
+            Receta rec = new Receta(nombre+String.valueOf(i),Descripcción,String.valueOf(i));
             rec.setIngredientes(getRandomsIngredientesReceta());
             slite.insertReceta(rec);
             slite.insertIngredientesReceta(rec);

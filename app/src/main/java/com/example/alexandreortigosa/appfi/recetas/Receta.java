@@ -45,6 +45,12 @@ public class Receta implements Serializable{
         this.descripccio=desc;
 
     }
+    public Receta(String name, String desc, String photo){
+        this.name=name;
+        this.descripccio=desc;
+        this.photo="/Custom/id/"+photo;
+
+    }
 
     public List<IngredienteReceta> getIngredientes() {
         Collections.sort(this.ingredientes, new Comparator<IngredienteReceta>() {

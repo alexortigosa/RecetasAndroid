@@ -71,26 +71,34 @@ public class RecetasAdapter extends ArrayAdapter<Receta> implements Filterable {
         }
 
         Receta receta = recetas.get(position);
-        /*Drawable drawable = context.getResources().getDrawable(R.drawable.addcamera);
-        holder.imgReceta.setImageDrawable(drawable);
-        if (holder.imgReceta != null && receta.getPhoto()!=null) {
-            Uri selectedImage = Uri.parse(receta.getPhoto());
-            InputStream imageStream = null;
-            try {
-                imageStream = context.getContentResolver().openInputStream(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-           holder.imgReceta.setImageBitmap(BitmapFactory.decodeStream(imageStream));
-            //new setImagesListTask(holder.imgReceta,context).execute(receta.getPhoto());
-        }*/
-        //new setImagesListTask(holder.imgReceta,context).execute(receta.getPhoto());
         holder.nombre.setText(receta.getName());
-        //holder.desc.setText(receta.getDescripccio().substring(0,25));
-        if (receta.getPhoto() != null)
-            holder.imgReceta.setImageBitmap(decodeSampledBitmapFromFile(context, receta.getPhoto(), 100, 100));
-        else
-            holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.camera, 100, 100));
+        String photo=receta.getPhoto();
+        if (photo != null) {
+            if (photo.contains("/Custom/id/")){
+                switch (photo.substring(photo.length() - 1)){
+                    case ("0"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo1, 100, 100));
+                        break;
+                    case ("1"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo2, 100, 100));
+                        break;
+                    case ("2"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo3, 100, 100));
+                        break;
+                    case ("3"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo4, 100, 100));
+                        break;
+                    case ("4"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo5, 100, 100));
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            else holder.imgReceta.setImageBitmap(decodeSampledBitmapFromFile(context, photo, 100, 100));
+        }
+        else  holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.camera, 100, 100));
 
         return row;
     }
