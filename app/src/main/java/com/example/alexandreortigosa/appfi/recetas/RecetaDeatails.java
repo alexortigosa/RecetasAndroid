@@ -223,6 +223,9 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
                     case ("4"):
                         photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo5, 200, 200));
                         break;
+                    case ("5"):
+                        photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromResource(getActivity().getApplicationContext().getResources(), R.drawable.photo6, 200, 200));
+                        break;
                     default:
                         break;
                 }

@@ -91,6 +91,9 @@ public class RecetasAdapter extends ArrayAdapter<Receta> implements Filterable {
                     case ("4"):
                         holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo5, 100, 100));
                         break;
+                    case ("5"):
+                        holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), R.drawable.photo6, 100, 100));
+                        break;
                     default:
                         break;
                 }
