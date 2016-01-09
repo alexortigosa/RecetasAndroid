@@ -53,7 +53,8 @@
         <activity
             android:name=".addRecetaNew"
             android:label="@string/title_activity_add_receta"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".aboutUs"
             android:label="@string/title_activity_about_us"
