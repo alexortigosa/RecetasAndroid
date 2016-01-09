@@ -52,6 +52,8 @@
                 android:layout_height="match_parent"
                 android:text="New Text"
                 android:textSize="15dp"
+                android:scrollbars = "vertical"
+                android:maxLines = "20"
                 android:textColor="@color/BackGroundColor"
                 android:id="@+id/DetalleRecetaDesc"
                 android:layout_weight="0.15" />

@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.method.KeyListener;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,6 +141,7 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
         photo=(ImageView) myFragmentView.findViewById(R.id.DetalleRecetaPhoto);
         kName=nombre.getKeyListener();
         kDesc=desc.getKeyListener();
+        desc.setMovementMethod(new ScrollingMovementMethod());
         nombre.setOnLongClickListener(this);
         desc.setOnLongClickListener(this);
         photo.setOnLongClickListener(this);

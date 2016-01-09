@@ -2,6 +2,10 @@ package com.example.alexandreortigosa.appfi.recetas;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by alexandreortigosa on 22/11/15.
  */
@@ -19,7 +23,7 @@ public class DatosPrueba {
 
         slite.open();
         for(int i=0; i<=numero;i++){
-            slite.insertIngrediente(new Ingrediente("Ingrediente" + String.valueOf(numero)));
+            slite.insertIngrediente(new Ingrediente("Ingrediente" + String.valueOf(i)));
         }
         slite.close();
 
@@ -33,9 +37,39 @@ public class DatosPrueba {
                 "Integer vitae ligula et dui semper commodo. Mauris enim est, aliquam non dui a, euismod accumsan felis. Vestibulum at imperdiet est, eu euismod sem. Etiam vulputate vel risus ac ullamcorper. Ut placerat purus vitae commodo pellentesque. Donec congue dictum tellus. Donec laoreet dui in ante tincidunt scelerisque. Proin ut faucibus purus. Donec eget maximus odio, et commodo turpis. Morbi auctor enim sed dapibus pulvinar. Morbi dui magna, ornare id faucibus sed, sagittis at elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec at metus metus. Vestibulum gravida arcu ac purus efficitur, eu rhoncus justo luctus. Aliquam nec lobortis sem. ";
         slite.open();
         for(int i=0; i<=numero;i++){
-            slite.insertReceta(new Receta(nombre+String.valueOf(i),Descripcción));
+
+            Receta rec = new Receta(nombre+String.valueOf(i),Descripcción);
+            rec.setIngredientes(getRandomsIngredientesReceta());
+            slite.insertReceta(rec);
+            slite.insertIngredientesReceta(rec);
+
         }
         slite.close();
+
+
+    }
+
+    private List<IngredienteReceta> getRandomsIngredientesReceta(){
+
+        List<IngredienteReceta> aux=slite.fetchListAllIngredientesReceta();
+        List<Ingrediente> subs=slite.fetchListAllIngredientes();
+        Random randomGenerator = new Random();
+        int size=aux.size();
+        int sizeSubs=aux.size();
+        int randomInt = randomGenerator.nextInt(size);
+        List<IngredienteReceta> result = new ArrayList<IngredienteReceta>();
+        for(int i=0;i<randomInt;i++){
+            int randomIntSub = randomGenerator.nextInt(sizeSubs);
+            IngredienteReceta ingRec = aux.get(randomGenerator.nextInt(size));
+            for(int j=0;j<randomIntSub;j++){
+                Ingrediente ing = subs.get(randomGenerator.nextInt(sizeSubs));
+                ingRec.addSubstitutivo(ing);
+            }
+            result.add(ingRec);
+        }
+
+        return result;
+
 
 
     }

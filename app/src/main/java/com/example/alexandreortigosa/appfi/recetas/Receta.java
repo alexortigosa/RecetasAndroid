@@ -3,6 +3,9 @@ package com.example.alexandreortigosa.appfi.recetas;
 import android.content.Context;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +13,7 @@ import java.util.List;
  * Created by referralsLoLGlobal on 22/12/2015.
  */
 public class Receta implements Serializable{
-    private List<IngredienteReceta> ingredientes;
+    private List<IngredienteReceta> ingredientes = new ArrayList<IngredienteReceta>();
     private String descripccio;
     private String photo;
     private List<String> categorias;
@@ -44,15 +47,34 @@ public class Receta implements Serializable{
     }
 
     public List<IngredienteReceta> getIngredientes() {
+        Collections.sort(this.ingredientes, new Comparator<IngredienteReceta>() {
+            @Override
+            public int compare(IngredienteReceta ingredienteReceta, IngredienteReceta t1) {
+                return ingredienteReceta.getName().compareTo(t1.getName());
+            }
+        });
         return ingredientes;
     }
 
     public void setIngredientes(List<IngredienteReceta> ingredientes) {
+
         this.ingredientes = ingredientes;
+        Collections.sort(this.ingredientes, new Comparator<IngredienteReceta>() {
+            @Override
+            public int compare(IngredienteReceta ingredienteReceta, IngredienteReceta t1) {
+                return ingredienteReceta.getName().compareTo(t1.getName());
+            }
+        });
     }
 
     public void anadirIngrediente(IngredienteReceta ing){
         ingredientes.add(ing);
+        Collections.sort(this.ingredientes, new Comparator<IngredienteReceta>() {
+            @Override
+            public int compare(IngredienteReceta ingredienteReceta, IngredienteReceta t1) {
+                return ingredienteReceta.getName().compareTo(t1.getName());
+            }
+        });
     }
 
     public String getDescripccio() {

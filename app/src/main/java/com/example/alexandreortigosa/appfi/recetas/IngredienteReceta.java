@@ -1,6 +1,8 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,6 +21,12 @@ public class IngredienteReceta extends Ingrediente {
     private int idInterno;
 
     public List<Ingrediente> getSubstitutivos() {
+        Collections.sort(substitutivos, new Comparator<Ingrediente>() {
+            @Override
+            public int compare(Ingrediente ingrediente, Ingrediente t1) {
+                return ingrediente.getName().compareTo(t1.getName());
+            }
+        });
         return substitutivos;
     }
 
@@ -27,6 +35,12 @@ public class IngredienteReceta extends Ingrediente {
    }
 
     public void setSubstitutivos(List<Ingrediente> substitutivos) {
+        Collections.sort(substitutivos, new Comparator<Ingrediente>() {
+            @Override
+            public int compare(Ingrediente ingrediente, Ingrediente t1) {
+                return ingrediente.getName().compareTo(t1.getName());
+            }
+        });
         this.substitutivos = substitutivos;
     }
 

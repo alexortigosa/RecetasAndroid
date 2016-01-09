@@ -1,6 +1,7 @@
 package com.example.alexandreortigosa.appfi.recetas;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,15 +11,28 @@ import android.view.MenuItem;
 public class BaseActivity extends Activity {
 
     public gestDB gesdb;
+    static final String FIRST="FIRST";
+    static final String FIRST_MODE="FIRST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         gesdb=new gestDB(getApplicationContext());
-        DatosPrueba dtp = new DatosPrueba(gesdb);
-        //dtp.generarIngredientes(20);
-       // dtp.generarRecetas(10);
+        SharedPreferences settings = getSharedPreferences(FIRST, 0);
+        boolean silent = settings.getBoolean(FIRST_MODE, true);
+        if(silent){
+            DatosPrueba dtp = new DatosPrueba(gesdb);
+            dtp.generarIngredientes(20);
+             dtp.generarRecetas(5);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(FIRST_MODE, false);
+
+            // Commit the edits!
+            editor.commit();
+        }
+
+
 
 
 

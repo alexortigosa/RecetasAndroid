@@ -20,11 +20,12 @@ import java.util.ListIterator;
  */
 public class gestDB {
 
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 15;
     private static final String DATABASE_NAME = "dataBase.db";
 
     //Definición de tabla login
     private static final String TABLE_RECETAS = "RECETAS";
+
 
 
 
@@ -109,6 +110,8 @@ public class gestDB {
         this.db=openHelper.getWritableDatabase();
         return this;
     }
+
+
 
     public void close(){
         this.db.close();
@@ -325,12 +328,12 @@ public class gestDB {
         String myQuery = "SELECT REC."+recetasIngredientes.ID_RECETAINGREDIENTE+" AS idRecetaIngrediente, ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
                 TABLE_RECETAINGREDIENTES+" REC "+
                 "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+recetasIngredientes.ID_INGREDIENTE+" "+
-                "WHERE REC."+recetasIngredientes.ID_RECETA+"=?";
+                "WHERE REC."+recetasIngredientes.ID_RECETA+"=? ORDER BY "+Ingredientes.NOMBRE+" ASC";
 
         String myQuery2 = "SELECT ING."+Ingredientes.ID_INGREDIENTE+", ING."+Ingredientes.NOMBRE+" FROM "+
                 TABLE_SUBSTITUTIVOS+" REC "+
                 "JOIN "+TABLE_INGREDIENTE+" ING ON ING."+Ingredientes.ID_INGREDIENTE+"=REC."+Substitutivos.ID_SUB+" "+
-                "WHERE REC."+Substitutivos.ID_INGREDIENTE+"=?";
+                "WHERE REC."+Substitutivos.ID_INGREDIENTE+"=? ORDER BY "+Ingredientes.NOMBRE+" ASC";
 
         Cursor mCursor = db.rawQuery(myQuery,new String[]{String.valueOf(id)});
         List<IngredienteReceta> result = new ArrayList<>();
