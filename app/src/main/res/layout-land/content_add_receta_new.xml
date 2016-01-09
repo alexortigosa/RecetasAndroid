@@ -86,7 +86,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.9">
+                android:layout_weight="0.8">
 
 
                 <EditText
@@ -94,7 +94,7 @@
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:id="@+id/addReceta_Name"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:hint="@string/addReceta_name"/>
             </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.15"
+                android:layout_weight="0.2"
                 android:weightSum="1">
                 <EditText
                     android:inputType="textMultiLine"

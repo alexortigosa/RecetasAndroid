@@ -59,7 +59,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="New Button"
+                android:text="@string/buttonAboutText"
                 android:background="@drawable/button"
                 android:layout_below="@+id/button_recetas_main"
                 android:layout_centerHorizontal="true"

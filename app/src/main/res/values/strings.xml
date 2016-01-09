@@ -40,5 +40,7 @@
     <string name="button_add_lista_ingredientes">Guardar</string>
     <string name="addimagecontent">Imagen</string>
     <string name="title_activity_add_receta_new">addRecetaNew</string>
+    <string name="buttonAboutText">Sobre Nosotros</string>
+    <string name="title_activity_about_us">aboutUs</string>
 
 </resources>

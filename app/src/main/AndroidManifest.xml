@@ -50,6 +50,10 @@
         <activity
             android:name=".addRecetaNew"
             android:label="@string/title_activity_add_receta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".aboutUs"
+            android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

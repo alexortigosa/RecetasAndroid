@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     public void goToAbout(){
-        Intent intent = new Intent(getApplicationContext(), addRecetaNew.class);
+        Intent intent = new Intent(getApplicationContext(), aboutUs.class);
         startActivity(intent);
     }
 
