@@ -11,7 +11,7 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
@@ -24,15 +24,43 @@
             android:text="Large Text"
             android:id="@+id/RecetaListName"
             android:width="1dp"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
             android:gravity="center_vertical|center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button"
+            android:layout_gravity="right"
+            android:background="#00ffffff"
+            android:layout_weight="0.8"
+            />
 
     </LinearLayout>
 
-    <ImageView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/RecetaListPhoto"
-        android:layout_weight="0.3" />
+        android:layout_weight="0.3"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/RecetaListPhoto"
+            android:layout_weight="0.2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Ver>>"
+            android:id="@+id/button2"
+            android:layout_gravity="right"
+            android:background="#00ffffff"
+            android:layout_weight="0.8"
+            android:gravity="bottom|right"
+            android:textSize="10dp" />
+    </LinearLayout>
 
 </LinearLayout>
