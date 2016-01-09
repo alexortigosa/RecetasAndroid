@@ -72,7 +72,7 @@ public class RecetasAdapter extends ArrayAdapter<Receta> {
         //holder.desc.setText(receta.getDescripccio().substring(0,25));
         if(receta.getPhoto()!=null)
             holder.imgReceta.setImageBitmap(decodeSampledBitmapFromFile(context,receta.getPhoto(),100,100));
-        else holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(),R.drawable.addcamera,100,100));
+        else holder.imgReceta.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(),R.drawable.camera,100,100));
 
         return row;
     }

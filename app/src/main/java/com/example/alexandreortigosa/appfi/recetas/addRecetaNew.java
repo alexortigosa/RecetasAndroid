@@ -136,16 +136,23 @@ public class addRecetaNew extends AppCompatActivity implements View.OnClickListe
     }
 
     private void guardarReceta(){
-        receta.setName(eName.getText().toString());
-        receta.setDescripccio(eDesc.getText().toString());
-        receta.setIngredientes(lIngredientes);
-        gesdb=new gestDB(getApplicationContext());
-        gesdb.open();
-        //gesdb.guardarReceta(receta);
-        gesdb.insertReceta(receta);
-        Intent i = new Intent();
-        setResult(Activity.RESULT_OK, i);
-        finish();
+        String name=eName.getText().toString();
+        if(name!=null && name.replace(" ","").length()>0) {
+            receta.setName(eName.getText().toString());
+            receta.setDescripccio(eDesc.getText().toString());
+            receta.setIngredientes(lIngredientes);
+            gesdb = new gestDB(getApplicationContext());
+            gesdb.open();
+            //gesdb.guardarReceta(receta);
+            gesdb.insertReceta(receta);
+            Intent i = new Intent();
+            setResult(Activity.RESULT_OK, i);
+            finish();
+        }
+        else{
+            Snackbar.make(eName, "Debe introducir un nombre con algún caracter", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     private void setImage(){

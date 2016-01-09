@@ -91,7 +91,7 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(RECETA, receta);
-        outState.putSerializable(LISTA,new CustomListIng(lIngredientes));
+        outState.putSerializable(LISTA, new CustomListIng(lIngredientes));
         super.onSaveInstanceState(outState);
     }
 
@@ -136,16 +136,22 @@ public class addReceta1 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void guardarReceta(){
-        receta.setName(eName.getText().toString());
-        receta.setDescripccio(eDesc.getText().toString());
-        receta.setIngredientes(lIngredientes);
-        gesdb=new gestDB(getApplicationContext());
-        gesdb.open();
-        //gesdb.guardarReceta(receta);
-        gesdb.insertReceta(receta);
-        Intent i = new Intent();
-        setResult(Activity.RESULT_OK, i);
-        finish();
+        String name=eName.getText().toString();
+        if(name!=null && name.replace(" ","").length()>0) {
+            receta.setName(eName.getText().toString());
+            receta.setDescripccio(eDesc.getText().toString());
+            receta.setIngredientes(lIngredientes);
+            gesdb = new gestDB(getApplicationContext());
+            gesdb.open();
+            //gesdb.guardarReceta(receta);
+            gesdb.insertReceta(receta);
+            Intent i = new Intent();
+            setResult(Activity.RESULT_OK, i);
+            finish();
+        }
+        else{
+
+        }
     }
 
     private void setImage(){
