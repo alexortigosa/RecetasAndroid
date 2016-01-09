@@ -26,8 +26,7 @@ public class addRecetaNew extends AppCompatActivity implements View.OnClickListe
     EditText eName;
     EditText eDesc;
     ImageView imgView;
-    Button bChecked;
-    Button bCancel;
+    ImageView bChecked;
     Button bIngredientes;
     Button bSave;
     Receta receta;
@@ -76,11 +75,10 @@ public class addRecetaNew extends AppCompatActivity implements View.OnClickListe
         imgView = (ImageView) findViewById(R.id.addRecetaPhoto);
         imgView.setImageDrawable(getResources().getDrawable(R.drawable.addcamera));
         imgView.setOnClickListener(this);
-        bChecked=(Button) findViewById(R.id.addReceta_checkedButton);
-        bCancel=(Button) findViewById(R.id.addReceta_cancelButton);
+        bChecked=(ImageView) findViewById(R.id.addReceta_checkedButton);
+
         bIngredientes=(Button) findViewById(R.id.addReceta_ButtonIng);
         bChecked.setOnClickListener(this);
-        bCancel.setOnClickListener(this);
         bIngredientes.setOnClickListener(this);
         bSave=(Button)findViewById(R.id.addReceta_ButtonAdd);
         bSave.setOnClickListener(this);

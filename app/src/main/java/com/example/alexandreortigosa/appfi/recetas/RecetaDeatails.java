@@ -195,6 +195,12 @@ public class RecetaDeatails extends Fragment implements View.OnLongClickListener
     public void setInfo()
     {
         nombre.setText(receta.getName());
+        String descrip=receta.getDescripccio();
+        if(descrip!=null && descrip.replace(" ","").length()>0){
+            desc.setText(receta.getDescripccio());
+        }
+        else desc.setText(getResources().getString(R.string.receta_detalles_empty_desc));
+
         desc.setText(receta.getDescripccio());
         if(receta.getPhoto()!=null)
             photo.setImageBitmap(RecetasAdapter.decodeSampledBitmapFromFile(getActivity().getApplicationContext(),receta.getPhoto(),200,200));

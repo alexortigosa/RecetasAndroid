@@ -29,6 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecetasContainer"
+            android:label="@string/title_activity_recetasContainer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Ingredientes"

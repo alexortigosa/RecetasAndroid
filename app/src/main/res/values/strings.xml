@@ -19,13 +19,13 @@
     <string name="dialog_add_text">Ingrediente guardado</string>
     <string name="addReceta_name">Nombre receta</string>
     <string name="addReceta_Desc">Descripción Receta</string>
-    <string name="title_activity_add_ingredientes_receta">Añadir ingredientes Receta</string>
+    <string name="title_activity_add_ingredientes_receta">Ingredientes Receta</string>
     <string name="add_Ingredientes_Intent">INTENTiNGREDIENTES</string>
     <string name="add_Ingredientes_Subs_Intent">INTENT_INGREDIENTES_SUBS</string>
     <string name="add_Ingredientes_delete_title">Quiere borrar el ingrediente?</string>
     <string name="add_Substitutivos_delete_title">Quiere borrar el Substituto de la lista?</string>
     <string name="add_Ingredientes_delete_borrar">Borrar</string>
-    <string name="title_activity_add_subs">Añadir Substitutivos</string>
+    <string name="title_activity_add_subs">Ingredientes Substitutivos</string>
     <string name="title_activity_add_receta">Añadir Receta</string>
     <string name="add_Receta_add">Guardar Receta</string>
     <string name="add_Receta_Ingredientes">Ingredientes</string>
@@ -41,6 +41,8 @@
     <string name="addimagecontent">Imagen</string>
     <string name="title_activity_add_receta_new">addRecetaNew</string>
     <string name="buttonAboutText">Sobre Nosotros</string>
-    <string name="title_activity_about_us">aboutUs</string>
+    <string name="title_activity_about_us">Sobre Nosotros</string>
+    <string name="receta_detalles_empty_desc">Sin descripcción</string>
+    <string name="title_activity_recetasContainer">Receta</string>
 
 </resources>

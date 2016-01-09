@@ -124,19 +124,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.85">
 
-                    <Button
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:id="@+id/addReceta_checkedButton"
-                        android:layout_weight="1"
-                        android:background="@drawable/checkedonly" />
+                        android:src="@drawable/checkedclean" />
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/addReceta_cancelButton"
-                        android:layout_weight="1"
-                        android:background="@drawable/canceltynired" />
                 </LinearLayout>
             </LinearLayout>
 
